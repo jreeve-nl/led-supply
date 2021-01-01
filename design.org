@@ -1,0 +1,407 @@
+#+TITLE:     230V AC - 48V DC CC, CV Isolated Buck Converter Design (LED Driver)
+#+AUTHOR:    Jeremy Reeve
+#+EMAIL:     jreeve.nl@gmail.com
+#+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
+#+OPTIONS: author:t broken-links:nil c:nil creator:nil
+#+OPTIONS: d:(not "LOGBOOK") date:t e:t email:nil f:t inline:t num:t
+#+OPTIONS: p:nil pri:nil prop:nil stat:t tags:t tasks:t tex:t
+#+OPTIONS: timestamp:t title:t toc:nil todo:t |:t
+#+LANGUAGE: en
+#+SELECT_TAGS: export
+#+EXCLUDE_TAGS: noexport
+#+CREATOR: Emacs 25.1.1 (Org mode 9.0.5)
+#+OPTIONS: html-link-use-abs-url:nil html-postamble:auto
+#+OPTIONS: html-preamble:t html-scripts:t html-style:t
+#+OPTIONS: html5-fancy:nil tex:t
+#+HTML_DOCTYPE: xhtml-strict
+#+HTML_CONTAINER: div
+#+DESCRIPTION:
+#+KEYWORDS:
+#+HTML_LINK_HOME:
+#+HTML_LINK_UP:
+#+HTML_MATHJAX:uuuu
+#+HTML_HEAD:
+#+HTML_HEAD_EXTRA:
+#+SUBTITLE:
+#+INFOJS_OPT:
+#+CREATOR: <a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.1.1 (<a href="http://orgmode.org">Org</a> mode 9.0.5)
+#+LATEX_HEADER:
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:
+#+LATEX_HEADER:
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+LATEX_HEADER_EXTRA: \usepackage{amsmath, amssymb}
+#+LATEX_HEADER_EXTRA: \usepackage{bm}
+#+LATEX_HEADER_EXTRA: \usepackage{gensymb}
+#+LATEX_HEADER_EXTRA: \DeclareRobustCommand{\bbone}{\text{\usefont{U}{bbold}{m}{n}1}}
+#+LATEX_HEADER_EXTRA: \DeclareMathOperator{\EX}{\mathrm{E}}% expected value
+#+LATEX_HEADER_EXTRA: \DeclareMathOperator{\Var}{\mathrm{Var}}% variance value
+#+LATEX_HEADER_EXTRA: \DeclareMathOperator{\Cov}{\mathrm{Cov}}% covariance value
+#+LATEX_HEADER_EXTRA: \newcommand{\distas}{\sim}%
+#+DESCRIPTION:
+#+KEYWORDS:
+#+SUBTITLE:
+#+LATEX_COMPILER: pdflatex
+#+DATE: \today
+#+STARTUP: showall indent
+#+STARTUP: hidestars
+#+STARTUP: latexpreview
+#+BEGIN_EXPORT html
+---
+layout: page
+category : design
+tagline: "230V AC - 48V DC CC, CV Isolated Buck Converter Design (LED Driver)"
+tags : [microgreens, led, powerelectronics]
+---
+{% include JB/setup %}
+#+END_EXPORT
+
+#+BEGIN_SRC python :noweb yes :tangle led_supply_design.py :exports none
+#!/usr/bin/env python
+
+"""
+led_supply_design.py: 
+
+	Copyright (c) 2020 Jeremy Reeve <jreeve.nl@gmail.com>
+
+
+"""
+
+<<led-supply-design-main-imports>>
+
+<<led-supply-design-imports>>
+
+<<led-supply-design-authorship>>
+
+# constants
+<<led-supply-design-constants>>
+
+# globals
+<<led-supply-design-globals>>
+
+# exception classes
+
+# interface functions
+
+# classes
+<<led-supply-design-defn>>
+
+# internal functions & classes
+
+<<led-supply-design-constants>>
+
+<<led-supply-design-compute-approx-snr-earth-surface>>
+
+<<led-supply-design-main>>
+
+<<led-supply-design-call-main>>
+#+END_SRC
+
+#+NAME: led-supply-design-authorship
+#+BEGIN_SRC python :exports none
+  __author__ = "Jeremy Reeve"
+  __copyright__ = "Copyright 2020, Jeremy Reeve"
+  __credits__ = ["Jeremy Reeve"]
+  __license__ = "Murky"
+  __version__ = "1.0.1"
+  __maintainer__ = "Jeremy Reeve"
+  __email__ = "jreeve.nl@gmail.com"
+  __status__ = "Prototype"
+#+END_SRC
+
+
+#+NAME: led-supply-design-imports
+#+BEGIN_SRC python :exports none
+  from argparse import ArgumentParser
+
+  import logging
+  import os
+  import sys
+
+  import matplotlib.pyplot as plt
+  import mpl_toolkits.mplot3d.axes3d as axes3d
+  import numpy as np
+  import scipy.integrate
+  import scipy.optimize
+#+END_SRC
+
+
+#+NAME: led-supply-design-main
+#+BEGIN_SRC python :exports none
+
+  def main():
+      compute_approx_snr_earth_surface()
+
+#+END_SRC
+
+
+
+#+NAME: led-supply-design-call-main
+#+BEGIN_SRC python :exports none
+  if __name__ == '__main__':
+      status = main()
+      sys.exit(status)
+#+END_SRC
+
+
+
+#+NAME: led-supply-design-constants
+#+BEGIN_SRC python :exports code
+
+  CONST_C = 299792458
+  """float: c (ms^1), universal physical constant for speed of light in a vacuum.
+
+  """
+
+  CONST_K = 1.38064852e-23
+  """float: k (J K^-1), Boltzmann constant.
+
+  """
+
+  CONST_ROOM_TEMP = 298
+  """int: T_25 (K), Room temperature in Kelvin.
+
+  """
+
+  CONST_MU_0 = 1.2566370614e-6
+  """float: \mu_0 (H m^{-1}), Permeability of free space 
+
+  """
+
+  CONST_F_S = 1e6
+  """float: f_{nom} (Hz), Nominal switching frequency
+
+  """
+
+  CONST_ETA = 0.90
+  """float: eta (), Converter efficiency (assumed) 
+
+  """
+
+  CONST_MAX_RIPPLE = 0.01
+  """float: max_ripple (),  ratio such that |v_ripple(t)| / V << max_ripple 
+
+  """
+
+  DEBUG_LOG = False
+  """bool: DEBUG_LOG , switch on verbose logging."""
+
+#+END_SRC
+
+
+
+* Estimating nominal values for power supply outputs
+
+
+#+NAME: led-supply-design-compute-supply-outputs
+#+BEGIN_SRC python :results output scalar raw replace
+
+  class LEDFixtureParams(object):
+
+      P_nominal    =   65       #  (W) reference from HLG 65W product
+      N            =  120       #  total number of LEDs 
+      N_p          =    8       #  number of LEDs in parallel 
+      N_s          =  N / N_p   #  implied number of LEDs in series
+      MANUFACTURER = "Samsung Semiconductor, Inc."  #
+      DESCRIPTION  = "LED LM301H"                   #
+      PART_NUMBER  = "SPMWHD32AMH5XAP5SL"           #
+      V_F          =    2.75    #  (V)  LED forward voltage drop
+      I_test       =   65       #  (mA) LED test current
+      I_nominal    =  P_nominal / N / V_F * 1e3
+                                #  (mA) LED nominal current derived from HLG 65W product
+      I_max        =  200       #  (mA) LED maximum rated current
+
+
+  class SupplyOutputs(object):
+
+      V_O_max      =   54.0     #  (V)  Maximum output voltage chosen arbitrarily
+
+      def __init__(self, ledFixtureParams):
+          self.ledFixtureParams = ledFixtureParams
+
+
+      def V_O_min(self):
+
+          return self.ledFixtureParams.N_s * self.ledFixtureParams.V_F
+
+
+      def V_O_nominal(self):
+
+          return self.V_O_min() + 3.0    # arbitrary!
+
+    
+      def v_O_ripple_pk(self):
+
+          return self.V_O_nominal() * CONST_MAX_RIPPLE
+    
+
+      def I_O_nominal(self):
+
+          return self.ledFixtureParams.N_p * self.ledFixtureParams.I_nominal
+
+
+      def I_O_test(self):
+
+          return self.ledFixtureParams.N_p * self.ledFixtureParams.I_test
+
+
+      def I_O_max(self):
+
+          return self.ledFixtureParams.N_p * self.ledFixtureParams.I_max
+
+
+      def P_O_test(self):
+
+          return self.I_O_test() * self.V_O_min() / 1e3
+
+
+      def P_O_nominal(self):
+
+          return self.I_O_nominal() * self.V_O_min() / 1e3
+
+
+      def P_O_max(self):
+
+          return self.I_O_max() * self.V_O_max / 1e3
+
+
+  def compute_supply_outputs():
+
+      supplyOutputs = SupplyOutputs(LEDFixtureParams())
+
+      print("V_O_min = {0} V  V_O_nominal = {1} V  V_O_max = {2} V  v_O_ripple_pk = {3} V"
+            .format(supplyOutputs.V_O_min(), supplyOutputs.V_O_nominal(), supplyOutputs.V_O_max,
+                    supplyOutputs.v_O_ripple_pk()))
+
+      print("I_O_test = {0} mA  I_O_nominal = {1} mA  I_O_max = {2} mA"
+            .format(supplyOutputs.I_O_test(), supplyOutputs.I_O_nominal(), supplyOutputs.I_O_max()))
+
+      print("P_O_test = {0} W  P_O_nominal = {1} W  P_O_max = {2} W  "
+            .format(supplyOutputs.P_O_test(), supplyOutputs.P_O_nominal(), supplyOutputs.P_O_max()))            
+
+      return [supplyOutputs.V_O_min(), supplyOutputs.V_O_nominal(), supplyOutputs.V_O_max,
+              supplyOutputs.I_O_test(), supplyOutputs.I_O_nominal(), supplyOutputs.I_O_max(),
+              supplyOutputs.P_O_test(), supplyOutputs.P_O_nominal(), supplyOutputs.P_O_max()]
+
+#+END_SRC
+
+
+#+NAME: led-supply-design-compute-supply-outputs-main
+#+BEGIN_SRC python :noweb yes :tangle compute_supply_outputs.py :exports none :results output scalar raw replace
+  <<led-supply-design-imports>>
+
+  <<led-supply-design-constants>>
+
+  <<led-supply-design-compute-supply-outputs>>
+
+  def main():
+      compute_supply_outputs()
+
+  <<led-supply-design-call-main>>
+#+END_SRC
+
+#+RESULTS: led-supply-design-compute-supply-outputs-main
+V_O_min = 41.25 V  V_O_nominal = 44.25 V  V_O_max = 54.0 V  v_O_ripple_pk = 0.4425 V
+I_O_test = 520 mA  I_O_nominal = 1575.7575757575758 mA  I_O_max = 1600 mA
+P_O_test = 21.45 W  P_O_nominal = 65.0 W  P_O_max = 86.4 W  
+
+
+
+
+* Supply Inputs
+
+Since we now know what the power supply must deliver, we may calculate approximate bounds on what we draw from the line assuming a certain efficiency.
+
+
+#+NAME: led-supply-design-compute-supply-inputs
+#+BEGIN_SRC python :results output scalar raw replace
+
+  class SupplyInputs():
+
+      V_line_min     = 100      #  (V rms) Minimum line input voltage
+      V_line_nominal = 230      #  (V rms) Nominal line input voltage
+      V_line_max     = 250      #  (V rms) Maximum line input voltage
+
+
+      def __init__(self, supplyOutputs):
+          self.supplyOutputs = supplyOutputs
+
+
+      def P_I_test(self):
+
+          return self.supplyOutputs.P_O_test() / CONST_ETA
+
+
+      def P_I_nominal(self):
+
+          return self.supplyOutputs.P_O_nominal() / CONST_ETA 
+
+
+      def P_I_max(self):
+
+          return self.supplyOutputs.P_O_max() / CONST_ETA
+
+
+      def I_I_min(self):
+
+          return self.supplyOutputs.P_O_test() / (self.V_line_max * np.sqrt(2))
+
+
+      def I_I_nominal(self):
+
+          return self.supplyOutputs.P_O_nominal() / (self.V_line_nominal * np.sqrt(2))
+
+
+      def I_I_max(self):
+
+          return self.supplyOutputs.P_O_max() / (self.V_line_min * np.sqrt(2))
+
+
+
+  def compute_supply_inputs():
+
+      supplyInputs = SupplyInputs(SupplyOutputs(LEDFixtureParams()))
+
+      print("P_I_test = {0} W  P_I_nominal = {1} W  P_I_max = {2} W"
+            .format(supplyInputs.P_I_test(), supplyInputs.P_I_nominal(), supplyInputs.P_I_max()))
+      print("I_I_min = {0} A rms  I_I_nominal = {1} A rms  I_I_max = {2} A rms"
+            .format(supplyInputs.I_I_min(), supplyInputs.I_I_nominal(), supplyInputs.I_I_max()))
+
+      # Assuming PF=1 !
+      print("I_I_min_peak = {0} A  I_I_nominal_peak = {1} A  I_I_max_peak = {2} A"
+            .format(supplyInputs.I_I_min() * np.sqrt(2),
+                    supplyInputs.I_I_nominal() * np.sqrt(2),
+                    supplyInputs.I_I_max() * np.sqrt(2)))
+
+
+      return supplyInputs
+
+#+END_SRC
+
+
+#+NAME: led-supply-design-compute-supply-inputs-main
+#+BEGIN_SRC python :noweb yes :tangle compute_supply_inputs.py :exports none :results output scalar raw replace
+  <<led-supply-design-imports>>
+
+  <<led-supply-design-constants>>
+
+  <<led-supply-design-compute-supply-outputs>>
+
+  <<led-supply-design-compute-supply-inputs>>
+
+  def main():
+      compute_supply_inputs()
+
+  <<led-supply-design-call-main>>
+#+END_SRC
+
+#+RESULTS: led-supply-design-compute-supply-inputs-main
+P_I_test = 23.833333333333332 W  P_I_nominal = 72.22222222222221 W  P_I_max = 96.0 W
+I_I_min = 0.060669761825805774 A rms  I_I_nominal = 0.19983452511793734 A rms  I_I_max = 0.6109402589451771 A rms
+I_I_min_peak = 0.0858 A  I_I_nominal_peak = 0.28260869565217395 A  I_I_max_peak = 0.8640000000000001 A
+
+
+
+*  Simulation of a diode bridge feeding a resistive load
+
+

@@ -178,8 +178,8 @@ led_supply_design.py:
 
   """
 
-  CONST_MAX_RIPPLE = 0.01
-  """float: max_ripple (),  ratio such that |v_ripple(t)| / V << max_ripple 
+  CONST_RIPPLE_FACTOR = 0.01
+  """float: gamma (),  ratio such that |v_ripple(t)| / V << gamma
 
   """
 
@@ -232,7 +232,7 @@ led_supply_design.py:
     
       def v_O_ripple_pk(self):
 
-          return self.V_O_nominal() * CONST_MAX_RIPPLE
+          return self.V_O_nominal() * CONST_RIPPLE_FACTOR
     
 
       def I_O_nominal(self):
@@ -405,3 +405,38 @@ I_I_min_peak = 0.0858 A  I_I_nominal_peak = 0.28260869565217395 A  I_I_max_peak 
 *  Simulation of a diode bridge feeding a resistive load
 
 
+Here we use a resistive load to represent the downstream load experienced by the bridge.  In reality if this were to model a diode bridge rectifier in a typical rectifier to buck DC-DC converter topology, this resistive load would be misrepresentative.  We need more information.
+
+The output reservoir capacitance is calculated such that we maintain a 1\% ripple on the output.  Assuming that the capacitor is sized such that it is charged to the rectifier peak output voltage on each cycle, then $V_{O,\text{max}} = V_{\text{pk}} - 2 V_{f} = 230 \sqrt{2} - 1.4 \approx 324$ V.  Assume $|v_{\text{ripple}}| = \gamma V_{\text{O,max}} = 0.01 \cdot 324 = 3.24$ V.  We see from the previous supply calculations that we would need to deliver $P_{\text{I,max}} = 96.0$ W and we take our resistive load to be $R_L = \frac{V_{O,\text{max}}^2}{P_{\text{I,max}}} = \frac{324^2}{96} = 1093.5 \Omega$ .
+
+Assume that the time constant of the output RC combination, $\tau = RC$ is much larger than the output waveform period, then we may linearise the output voltage as the capacitor discharges into the load.  $Q = CV$ and $Q = It$.  We have full-bridge rectification therefore $T = \frac{1}{2f} = 10$ ms.  Approximate the current drawn by the load as $I = \frac{V_{\text{O,max}}{R_L} = \frac{324}{1093.5} = 0.296$ A.  Neglecting the time taken to charge the reservoir capacitor, we have:
+
+\begin{align*}
+C |v_{\text{ripple}}| &= It                          \
+\Rightarrow  C &= \frac{IT}{|v_{\text{ripple}}|} = \frac{0.296 \cdot 10 \times 10^{-3}}{3.24}   \
+&= 
+\end{align*}
+
+
+
+#+CAPTION: Simulation schematic of full bridge rectifier with resistive load and reservoir capacitor
+#+LABEL:   fig:sim_sch_diode_bridge
+[[./sim/images/diode_bridge_1_sch.png]]
+
+
+#+CAPTION: Results for quasi-static situation (neglecting startup)
+#+LABEL:   fig:sim_dpl_diode_bridge
+[[./sim/images/diode_bridge_1.png]]
+
+
+#+CAPTION: Results for startup transient behaviour
+#+LABEL:   fig:sim_dpl_diode_bridge_startup
+[[./sim/images/diode_bridge_startup.png]]
+
+
+
+
+Write about it.
+
+
+*  

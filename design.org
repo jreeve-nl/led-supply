@@ -168,11 +168,6 @@ led_supply_design.py:
 
   """
 
-  CONST_F_S = 1e6
-  """float: f_{nom} (Hz), Nominal switching frequency
-
-  """
-
   CONST_ETA = 0.90
   """float: eta (), Converter efficiency (assumed) 
 
@@ -407,14 +402,14 @@ I_I_min_peak = 0.0858 A  I_I_nominal_peak = 0.28260869565217395 A  I_I_max_peak 
 
 Here we use a resistive load to represent the downstream load experienced by the bridge.  In reality if this were to model a diode bridge rectifier in a typical rectifier to buck DC-DC converter topology, this resistive load would be misrepresentative.  We need more information.
 
-The output reservoir capacitance is calculated such that we maintain a 1\% ripple on the output.  Assuming that the capacitor is sized such that it is charged to the rectifier peak output voltage on each cycle, then $V_{O,\text{max}} = V_{\text{pk}} - 2 V_{f} = 230 \sqrt{2} - 1.4 \approx 324$ V.  Assume $|v_{\text{ripple}}| = \gamma V_{\text{O,max}} = 0.01 \cdot 324 = 3.24$ V.  We see from the previous supply calculations that we would need to deliver $P_{\text{I,max}} = 96.0$ W and we take our resistive load to be $R_L = \frac{V_{O,\text{max}}^2}{P_{\text{I,max}}} = \frac{324^2}{96} = 1093.5 \Omega$ .
+The output reservoir capacitance is calculated such that we maintain a 1% ripple on the output.  Assuming that the capacitor is sized such that it is charged to the rectifier peak output voltage on each cycle, then $V_{O,\text{max}} = V_{\text{pk}} - 2 V_{f} = 230 \sqrt{2} - 1.4 \approx 324$ V.  Assume $|v_{\text{ripple}}| = \gamma V_{\text{O,max}} = 0.01 \cdot 324 = 3.24$ V.  We see from the previous supply calculations that we would need to deliver $P_{\text{I,max}} = 96.0$ W and we take our resistive load to be $R_L = \frac{V_{O,\text{max}}^2}{P_{\text{I,max}}} = \frac{324^2}{96} = 1093.5 \Omega$ .
 
 Assume that the time constant of the output RC combination, $\tau = RC$ is much larger than the output waveform period, then we may linearise the output voltage as the capacitor discharges into the load.  $Q = CV$ and $Q = It$.  We have full-bridge rectification therefore $T = \frac{1}{2f} = 10$ ms.  Approximate the current drawn by the load as $I = \frac{V_{\text{O,max}}{R_L} = \frac{324}{1093.5} = 0.296$ A.  Neglecting the time taken to charge the reservoir capacitor, we have:
 
 \begin{align*}
-C |v_{\text{ripple}}| &= It                          \
-\Rightarrow  C &= \frac{IT}{|v_{\text{ripple}}|} = \frac{0.296 \cdot 10 \times 10^{-3}}{3.24}   \
-&= 
+C |v_{\text{ripple}}| &= It                          \\
+\Rightarrow  C &= \frac{IT}{|v_{\text{ripple}}|} = \frac{0.296 \cdot 10 \times 10^{-3}}{3.24}   \\
+&= 914 \mu \text{F}
 \end{align*}
 
 
@@ -424,10 +419,17 @@ C |v_{\text{ripple}}| &= It                          \
 [[./sim/images/diode_bridge_1_sch.png]]
 
 
+
+** Quasi-static situation
+
+
 #+CAPTION: Results for quasi-static situation (neglecting startup)
 #+LABEL:   fig:sim_dpl_diode_bridge
 [[./sim/images/diode_bridge_1.png]]
 
+Operation is as expected.  This result demonstrates one problem associated with this technique and that is the highly distorted input current waveform with respect to the line input voltage.  Clearly there is much harmonic content other than at the fundamental.  At this power level and making use of passive filtering between the line and diode bridge results could be acceptable (in compliance) but surely we can do better and we have motivation to do so as the intended application must support many of these converters attached to a line and we wish to be good electrical appliance citizens!
+
+** Startup transient
 
 #+CAPTION: Results for startup transient behaviour
 #+LABEL:   fig:sim_dpl_diode_bridge_startup
@@ -435,8 +437,183 @@ C |v_{\text{ripple}}| &= It                          \
 
 
 
+The results in figure ref:fig:sim_dpl_diode_bridge_startup demonstrate another significant problem with this initial topology, and that is the high inrush current caused by the initial charging of the reservoir capacitor.  For the situation modelled here, we see a peak inrush currrent magnitude of nearly 100A.  This is problematic in many ways, the supply requirements, fusing requirements, stress on the rectifier diodes.  It's possible to accomodate all these issues by overspecification and therefore at increased cost, something we wish to avoid if possible.
 
-Write about it.
+
+* Buck Converter 
 
 
-*  
+Now that we have obtained a DC supply from the line, albeit in not such a satisfactory manner, we attempt to design a DC-DC converter that meets the specification.
+
+Without deriving the results we simply state them, referring to ref:erickson2007fundamentals .
+
+Voltage converstion ratio for a buck converter:
+
+\begin{align}
+M(D) &= D
+\end{align}
+
+By Volt-second balance applied to the inductor:
+
+\beign{align}
+\Delta i_L &= \frac{\left ( V_I - V_O \right ) D T_s}{2L} 
+\end{align}
+
+
+#+NAME: led-supply-design-compute-buck-design-params
+#+BEGIN_SRC python :results output scalar raw replace
+
+  class BuckDesignParams():
+
+      V_I             = 100      #  (V)   Nominal DC input voltage
+      f_s             = 132e3    #  (Hz)  Nominal switching frequency
+                                 #        (commercial transformers available)
+      T_s             = 1/f_s    #  (s)   Nominal switching period
+      RATIO_Delta_i_L =   0.1    #  ()    Ratio of inductor/output ripple current
+                                 #        to nominal current
+      RATIO_Delta_v_C =   0.01   #  ()    Ratio of capacitor/output ripple
+                                 #        voltage to nominal output voltage
+                                 #        (ripple current contributes to this)
+
+      def __init__(self, diodeBridgeParams, supplyOutputs):
+          self.diodeBridgeParams = diodeBridgeParams
+          self.supplyOutputs = supplyOutputs
+
+
+      def Delta_i_L(self):
+
+          return supplyOutputs.I_O_max() * RATIO_Delta_i_L
+
+    
+      def Delta_v_C(self):
+
+          return supplyOutputs.V_O_nominal() * RATIO_Delta_v_C
+
+    
+      def L(self):
+          L = (self.diodeBridgeOutputs.V_O_nominal                             \
+                       - self.supplyOutputs.V_O_nominal) * self.D() * self.T_s \
+                       / (2.0 * self.Delta_i_L())
+          return L
+
+    
+      def C(self):
+          C = self.supplyOutputs.V_O_nominal() * self.D() * self.T_s           \
+              / (2.0 * self.diodeBridgeParams.R_L() * self.Delta_v_C())
+          return C
+
+
+  def compute_buck_design_params():
+
+      buckDesignParams = BuckDesignParams(DiodeBridgeParams(),
+                                          SupplyOutputs(LEDFixtureParams()))
+
+      print("Delta_i_L = {0} A  L = {1} H"
+            .format(buckDesignParams.Delta_i_L(), buckDesignParams.L()))
+      print("Delta_v_C = {0} V  C = {1} F"
+            .format(buckDesignParams.Delta_v_C(), buckDesignParams.C()))
+
+      return buckDesignParams
+
+#+END_SRC
+
+
+#+NAME: led-supply-design-compute-buck-design-params
+#+BEGIN_SRC python :noweb yes :tangle compute_buck_design_params.py :exports none :results output scalar raw replace
+  <<led-supply-design-imports>>
+
+  <<led-supply-design-constants>>
+
+  <<led-supply-design-compute-supply-outputs>>
+
+  <<led-supply-design-compute-supply-inputs>>
+
+  <<led-supply-design-compute-buck-design-params>>
+
+  def main():
+      compute_buck_design_params()
+
+  <<led-supply-design-call-main>>
+#+END_SRC
+
+
+
+* Boost Converter in CCM
+
+One method of improving the distortion factor of the peak detector type rectifier circuit and hence the Power Factor is to emulate a Loss Free Resistor by having a Boost Converter vary its duty cycle with a switching frequency far above the line frequency in order to produce a relatively constant DC ouput...
+
+
+#+NAME: led-supply-design-compute-boost-pfc-params
+#+BEGIN_SRC python :results output scalar raw replace
+
+  class BoostPFCParams():
+
+      V_line_min     = 100      #  (V rms) Minimum line input voltage
+      V_line_nominal = 230      #  (V rms) Nominal line input voltage
+      V_line_max     = 250      #  (V rms) Maximum line input voltage
+
+
+      def __init__(self):
+
+
+      def L(self):
+
+          return 
+
+
+
+  def compute_boost_pfc_params():
+
+      boostPFCParams = BoostPFCParams()
+
+      print("P_I_test = {0} W  P_I_nominal = {1} W  P_I_max = {2} W"
+            .format(supplyInputs.P_I_test(), supplyInputs.P_I_nominal(), supplyInputs.P_I_max()))
+      print("I_I_min = {0} A rms  I_I_nominal = {1} A rms  I_I_max = {2} A rms"
+            .format(supplyInputs.I_I_min(), supplyInputs.I_I_nominal(), supplyInputs.I_I_max()))
+
+      # Assuming PF=1 !
+      print("I_I_min_peak = {0} A  I_I_nominal_peak = {1} A  I_I_max_peak = {2} A"
+            .format(supplyInputs.I_I_min() * np.sqrt(2),
+                    supplyInputs.I_I_nominal() * np.sqrt(2),
+                    supplyInputs.I_I_max() * np.sqrt(2)))
+
+
+      return supplyInputs
+
+#+END_SRC
+
+
+#+NAME: led-supply-design-compute-boost-pfc-params-main
+#+BEGIN_SRC python :noweb yes :tangle compute_boost_pfc_params.py :exports none :results output scalar raw replace
+  <<led-supply-design-imports>>
+
+  <<led-supply-design-constants>>
+
+  <<led-supply-design-compute-supply-outputs>>
+
+  <<led-supply-design-compute-supply-inputs>>
+
+  <<led-supply-design-compute-boost-pfc-params>>
+
+  def main():
+      compute_boost_pfc_params()
+
+  <<led-supply-design-call-main>>
+#+END_SRC
+
+
+* Active control of the current waveform
+
+
+ref:erickson2007fundamentals
+
+
+ref:umesh2014active demonstrates a technique for passive and a technique for active power factor correction.
+
+
+
+bibliographystyle:plain
+bibliography:references.bib
+
+
+

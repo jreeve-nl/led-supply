@@ -173,7 +173,7 @@ led_supply_design.py:
 
   """
 
-  CONST_RIPPLE_FACTOR = 0.01
+  CONST_GAMMA = 0.01
   """float: gamma (),  ratio such that |v_ripple(t)| / V << gamma
 
   """
@@ -227,7 +227,7 @@ led_supply_design.py:
     
       def v_O_ripple_pk(self):
 
-          return self.V_O_nominal() * CONST_RIPPLE_FACTOR
+          return self.V_O_nominal() * CONST_GAMMA
     
 
       def I_O_nominal(self):
@@ -402,6 +402,84 @@ I_I_min_peak = 0.0858 A  I_I_nominal_peak = 0.28260869565217395 A  I_I_max_peak 
 
 Here we use a resistive load to represent the downstream load experienced by the bridge.  In reality if this were to model a diode bridge rectifier in a typical rectifier to buck DC-DC converter topology, this resistive load would be misrepresentative.  We need more information.
 
+#+NAME: led-supply-design-compute-diode-bridge-params
+#+BEGIN_SRC python :results output scalar raw replace
+
+  class DiodeBridgeParams():
+
+      V_line_nominal = 230      #  (V rms) Nominal line input voltage
+      f_line         =  50      #  (Hz)    Nominal line frequency
+      V_F            =   0.7    #  (V)     Diode forward voltage drop
+
+
+      def __init__(self, supplyOutputs, supplyInputs):
+          self.supplyOutputs = supplyOutputs
+          self.supplyInputs = supplyInputs
+
+
+      def V_O_max(self):
+
+          return self.V_line_nominal * np.sqrt(2.0) - 2.0 * self.V_F
+
+
+      def V_O_ripple(self):
+
+          return self.V_O_max() * CONST_GAMMA 
+
+
+      def R_L(self):
+
+          return self.V_O_max() ** 2 / self.supplyInputs.P_I_max()
+
+
+      def C(self):
+
+          T = 1 / (2 * self.f_line)
+          I = self.V_O_max() / self.R_L()
+
+          return I * T / self.V_O_ripple() * 1e6  #uF
+
+
+
+  def compute_diode_bridge_params():
+
+      supplyOutputs = SupplyOutputs(LEDFixtureParams())
+      diodeBridgeParams = DiodeBridgeParams(supplyOutputs,
+                                            SupplyInputs(supplyOutputs))
+
+      print("V_O_max = {0} V  V_O_ripple = {1} V"
+            .format(diodeBridgeParams.V_O_max(), diodeBridgeParams.V_O_ripple()))
+      print("R_L = {0} Ohm  C = {1} uF"
+            .format(diodeBridgeParams.R_L(), diodeBridgeParams.C()))
+
+      return diodeBridgeParams
+
+#+END_SRC
+
+
+#+NAME: led-supply-design-compute-diode-bridge-params
+#+BEGIN_SRC python :noweb yes :tangle compute_diode_bridge_params.py :exports none :results output scalar raw replace
+  <<led-supply-design-imports>>
+
+  <<led-supply-design-constants>>
+
+  <<led-supply-design-compute-supply-outputs>>
+
+  <<led-supply-design-compute-supply-inputs>>
+
+  <<led-supply-design-compute-diode-bridge-params>>
+
+  def main():
+      compute_diode_bridge_params()
+
+  <<led-supply-design-call-main>>
+#+END_SRC
+
+#+RESULTS: led-supply-design-compute-diode-bridge-params
+V_O_max = 323.8691193458119 V  V_O_ripple = 3.238691193458119 V
+R_L = 1092.6167340190807 Ohm  C = 915.2340146957118 uF
+
+
 The output reservoir capacitance is calculated such that we maintain a 1% ripple on the output.  Assuming that the capacitor is sized such that it is charged to the rectifier peak output voltage on each cycle, then $V_{O,\text{max}} = V_{\text{pk}} - 2 V_{f} = 230 \sqrt{2} - 1.4 \approx 324$ V.  Assume $|v_{\text{ripple}}| = \gamma V_{\text{O,max}} = 0.01 \cdot 324 = 3.24$ V.  We see from the previous supply calculations that we would need to deliver $P_{\text{I,max}} = 96.0$ W and we take our resistive load to be $R_L = \frac{V_{O,\text{max}}^2}{P_{\text{I,max}}} = \frac{324^2}{96} = 1093.5 \Omega$ .
 
 Assume that the time constant of the output RC combination, $\tau = RC$ is much larger than the output waveform period, then we may linearise the output voltage as the capacitor discharges into the load.  $Q = CV$ and $Q = It$.  We have full-bridge rectification therefore $T = \frac{1}{2f} = 10$ ms.  Approximate the current drawn by the load as $I = \frac{V_{\text{O,max}}{R_L} = \frac{324}{1093.5} = 0.296$ A.  Neglecting the time taken to charge the reservoir capacitor, we have:
@@ -465,7 +543,6 @@ By Volt-second balance applied to the inductor:
 
   class BuckDesignParams():
 
-      V_I             = 100      #  (V)   Nominal DC input voltage
       f_s             = 132e3    #  (Hz)  Nominal switching frequency
                                  #        (commercial transformers available)
       T_s             = 1/f_s    #  (s)   Nominal switching period
@@ -480,23 +557,29 @@ By Volt-second balance applied to the inductor:
           self.supplyOutputs = supplyOutputs
 
 
+      def D(self):
+
+          return self.supplyOutputs.V_O_nominal()                               \
+              / self.diodeBridgeParams.V_O_max()
+
+
       def Delta_i_L(self):
 
-          return supplyOutputs.I_O_max() * RATIO_Delta_i_L
+          return self.supplyOutputs.I_O_max() * self.RATIO_Delta_i_L
 
-    
+
       def Delta_v_C(self):
 
-          return supplyOutputs.V_O_nominal() * RATIO_Delta_v_C
+          return self.supplyOutputs.V_O_nominal() * self.RATIO_Delta_v_C
 
-    
+
       def L(self):
-          L = (self.diodeBridgeOutputs.V_O_nominal                             \
-                       - self.supplyOutputs.V_O_nominal) * self.D() * self.T_s \
-                       / (2.0 * self.Delta_i_L())
+          L = (self.diodeBridgeParams.V_O_max()                                  \
+                       - self.supplyOutputs.V_O_nominal()) * self.D() * self.T_s \
+                       / (2.0 * self.Delta_i_L()) * 1e3 * 1e6
           return L
 
-    
+
       def C(self):
           C = self.supplyOutputs.V_O_nominal() * self.D() * self.T_s           \
               / (2.0 * self.diodeBridgeParams.R_L() * self.Delta_v_C())
@@ -505,10 +588,15 @@ By Volt-second balance applied to the inductor:
 
   def compute_buck_design_params():
 
-      buckDesignParams = BuckDesignParams(DiodeBridgeParams(),
-                                          SupplyOutputs(LEDFixtureParams()))
+      supplyOutputs = SupplyOutputs(LEDFixtureParams())
+      diodeBridgeParams = DiodeBridgeParams(supplyOutputs,
+                                            SupplyInputs(supplyOutputs))
 
-      print("Delta_i_L = {0} A  L = {1} H"
+      buckDesignParams = BuckDesignParams(diodeBridgeParams,
+                                          supplyOutputs)
+
+      print("D = {0} ".format(buckDesignParams.D()))
+      print("Delta_i_L = {0} mA  L = {1} uH"
             .format(buckDesignParams.Delta_i_L(), buckDesignParams.L()))
       print("Delta_v_C = {0} V  C = {1} F"
             .format(buckDesignParams.Delta_v_C(), buckDesignParams.C()))
@@ -528,6 +616,8 @@ By Volt-second balance applied to the inductor:
 
   <<led-supply-design-compute-supply-inputs>>
 
+  <<led-supply-design-compute-diode-bridge-params>>
+
   <<led-supply-design-compute-buck-design-params>>
 
   def main():
@@ -535,6 +625,11 @@ By Volt-second balance applied to the inductor:
 
   <<led-supply-design-call-main>>
 #+END_SRC
+
+#+RESULTS: led-supply-design-compute-buck-design-params
+D = 0.13662926582621165 
+Delta_i_L = 160.0 mA  L = 904.4544267800694 uH
+Delta_v_C = 0.4425 V  C = 4.736657253297398e-08 F
 
 
 

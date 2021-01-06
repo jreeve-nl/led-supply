@@ -1,6 +1,6 @@
 <Qucs Schematic 0.0.22>
 <Properties>
-  <View=0,0,1600,800,1,0,0>
+  <View=0,0,1600,872,1,0,0>
   <Grid=10,10,1>
   <DataSet=buck_sim_1.dat>
   <DataDisplay=buck_sim_1.dpl>
@@ -31,13 +31,14 @@
   <C C1 1 960 410 17 -26 0 1 "47 nF" 1 "" 0 "neutral" 0>
   <VProbe Pr2 1 510 340 28 -31 0 0>
   <GND * 1 520 360 0 0 0 0>
-  <SpicePar BRIDGE_PARAM1 1 60 140 -29 15 0 0 "PI=3.1415927" 1 "V_F=0.7" 1 "V_PK_LINE={230 * sqrt(2)}V" 1 "F_S=132k" 1 "T_S={1 / F_S}" 1 "D=0.1366" 1 "T_ON={D * T_S}" 1 "T_OFF={(1 - D) * T_S}" 1 "V_AVG={V_PK_LINE * 2 / PI}V" 1 "V_O=48V" 1 "P_LOAD=96.0W" 1 "R_LOAD={V_O^2 / P_LOAD}O" 1>
   <VProbe Pr3 1 690 200 28 -31 0 0>
   <GND * 1 700 240 0 0 0 0>
   <SpiceModel SWITCH1 1 90 580 -30 15 0 0 ".model switch1 sw vt=0.5 vh=0.2 ron=0.03 roff=1e7" 1 "" 0 "" 0 "" 0 "Line_5=" 0>
   <GND * 0 900 300 0 0 0 0>
   <vPWL V3 1 600 430 44 -26 0 1 "DC 1.0 PWL (0 0 5e-9 1 {T_ON - 10e-9} 1 {T_ON + 5e-9} 0 {T_OFF} 0) r=0" 1 "" 0 "" 0 "" 0 "" 0 "" 0 "" 0 "" 0 "" 0 "" 0>
-  <.TR TR1 1 820 640 0 59 0 0 "lin" 1 "0 ms" 1 "200 us" 1 "2e+06" 1 "Trapezoidal" 0 "2" 0 "1 ns" 0 "1e-16" 0 "150" 0 "0.001" 0 "1 pA" 0 "1 uV" 0 "26.85" 0 "1e-3" 0 "1e-6" 0 "1" 0 "CroutLU" 0 "no" 0 "yes" 0 "0" 0>
+  <SpicePar BRIDGE_PARAM1 1 90 130 -29 15 0 0 "PI=3.1415927" 1 "V_F=0.7" 1 "V_PK_LINE={230 * sqrt(2)}V" 1 "F_S=132k" 1 "T_S={1 / F_S}" 1 "D=0.1366" 1 "T_ON={D * T_S}" 1 "T_OFF={(1 - D) * T_S}" 1 "V_AVG={V_PK_LINE * 2 / PI}V" 1 "V_O=48V" 1 "P_LOAD=96.0W" 1 "R_LOAD={V_O^2 / P_LOAD}O" 1>
+  <SpiceOptions SpiceOptions1 1 1110 660 -37 15 0 0 "DEVICE" 0 "GMIN=1e-12" 1 "METHOD=gear" 1 "RELTOL=1m" 1>
+  <.TR TR1 1 820 640 0 59 0 0 "lin" 1 "0 ms" 1 "200 us" 1 "400000" 1 "Gear" 1 "2" 0 "500 ps" 0 "1e-16" 0 "150" 0 "0.001" 0 "1 pA" 0 "1 uV" 0 "26.85" 0 "1e-3" 0 "1e-6" 0 "1" 0 "CroutLU" 0 "no" 0 "yes" 0 "1 ns" 1>
 </Components>
 <Wires>
   <340 440 340 540 "" 0 0 0 "">

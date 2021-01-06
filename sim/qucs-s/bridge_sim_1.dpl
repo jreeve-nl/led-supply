@@ -26,15 +26,18 @@
 	<"ngspice/tran.v(v_o)" #ff5500 0 3 0 0 1>
 	<"ngspice/tran.v(pr5)" #aa0000 0 3 0 0 1>
   </Rect>
-  <Rect 120 803 818 283 3 #c0c0c0 1 00 1 0 0.002 0.04 1 -23.4763 50 258.239 1 -1 0.5 1 315 0 225 "" "" "">
+  <Rect 120 803 818 283 3 #c0c0c0 1 00 1 0.02 0.002 0.04 1 -570.358 2000 6273.93 1 -1 0.5 1 315 0 225 "" "" "">
 	<"ngspice/tran.p_l_t" #0000ff 0 3 0 0 0>
-	<"ngspice/tran.p_i_t" #005500 0 3 0 0 0>
+	<"ngspice/tran.p_i_t" #005500 0 3 0 0 1>
   </Rect>
-  <Tab 1070 227 735 167 3 #c0c0c0 1 00 1 0 1 1 1 0 1 1 1 0 1 40008 315 0 225 "" "" "">
+  <Tab 1070 227 735 167 3 #c0c0c0 1 00 1 0 1 1 1 0 1 1 1 0 1 40009 315 0 225 "" "" "">
 	<"ngspice/tran.v_i_rms" #0000ff 0 3 1 0 0>
 	<"ngspice/tran.i_i_rms" #0000ff 0 3 0 0 0>
 	<"ngspice/tran.v_o_rms" #0000ff 0 3 0 0 0>
 	<"ngspice/tran.i_o_rms" #0000ff 0 3 0 0 0>
+  </Tab>
+  <Tab 1060 560 300 200 3 #c0c0c0 1 00 1 0 1 1 1 0 1 1 1 0 1 40009 315 0 225 "" "" "">
+	<"ngspice/tran.v_o_ripple" #0000ff 0 3 1 0 0>
   </Tab>
 </Diagrams>
 <Paintings>

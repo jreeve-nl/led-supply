@@ -1,0 +1,133 @@
+(kicad_sch (version 20201015) (generator eeschema)
+
+  (paper "A4")
+
+  (title_block
+    (title "Grow Light")
+    (company "iGrow UG")
+  )
+
+  (lib_symbols
+  )
+
+
+  (sheet (at 25.4 127) (size 86.36 25.4)
+    (stroke (width 0.001) (type solid) (color 132 0 132 1))
+    (fill (color 255 255 255 0.0000))
+    (uuid 2f21cc9e-f96d-43f6-8f4f-bda07628fd66)
+    (property "Sheet name" "Auxilliary Supply" (id 0) (at 25.4 126.3641 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheet file" "aux-supply.kicad_sch" (id 1) (at 25.4 152.9089 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+  )
+
+  (sheet (at 25.4 160.02) (size 86.36 30.48)
+    (stroke (width 0.001) (type solid) (color 132 0 132 1))
+    (fill (color 255 255 255 0.0000))
+    (uuid f1c533f3-880e-43af-939d-d1b04b8807dd)
+    (property "Sheet name" "Connectivity" (id 0) (at 25.4 159.3841 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheet file" "connectivity.kicad_sch" (id 1) (at 25.4 191.0089 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+  )
+
+  (sheet (at 208.28 33.02) (size 63.5 17.78)
+    (stroke (width 0.001) (type solid) (color 132 0 132 1))
+    (fill (color 255 255 255 0.0000))
+    (uuid 2c0c1018-598b-4fc8-b9d4-a31fcf4a7761)
+    (property "Sheet name" "LED String" (id 0) (at 208.28 32.3841 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheet file" "led-string.kicad_sch" (id 1) (at 208.28 51.3089 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+  )
+
+  (sheet (at 25.4 25.4) (size 86.36 43.18)
+    (stroke (width 0.001) (type solid) (color 132 0 132 1))
+    (fill (color 255 255 255 0.0000))
+    (uuid 173e1528-7550-4235-b83a-f26eb8adb0a7)
+    (property "Sheet name" "Rectifier" (id 0) (at 25.4 24.7641 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheet file" "rectifier.kicad_sch" (id 1) (at 25.4 69.0889 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+  )
+
+  (sheet (at 25.4 76.2) (size 86.36 30.48)
+    (stroke (width 0.001) (type solid) (color 132 0 132 1))
+    (fill (color 255 255 255 0.0000))
+    (uuid 7205d0f2-8663-48d0-85b5-5485cfbb7c84)
+    (property "Sheet name" "Rectifier Control" (id 0) (at 25.4 75.5641 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheet file" "rectifier-control.kicad_sch" (id 1) (at 25.4 107.1889 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+  )
+
+  (sheet_instances
+    (path "/" (page "1"))
+    (path "/2c0c1018-598b-4fc8-b9d4-a31fcf4a7761/" (page "2"))
+    (path "/173e1528-7550-4235-b83a-f26eb8adb0a7/" (page "3"))
+    (path "/7205d0f2-8663-48d0-85b5-5485cfbb7c84/" (page "4"))
+    (path "/f1c533f3-880e-43af-939d-d1b04b8807dd/" (page "5"))
+    (path "/2f21cc9e-f96d-43f6-8f4f-bda07628fd66/" (page "6"))
+  )
+
+  (symbol_instances
+    (path "/2c0c1018-598b-4fc8-b9d4-a31fcf4a7761/3248e693-80c6-4707-8594-bcd4286cb582"
+      (reference "#PWR01") (unit 1) (value "GND") (footprint "")
+    )
+    (path "/2c0c1018-598b-4fc8-b9d4-a31fcf4a7761/89b058fb-1220-451b-a1de-bc5e23a025bb"
+      (reference "D1") (unit 1) (value "LED LM301H") (footprint "")
+    )
+    (path "/2c0c1018-598b-4fc8-b9d4-a31fcf4a7761/60c39c56-7ebd-425a-a24d-be11261458ff"
+      (reference "D2") (unit 1) (value "LED LM301H") (footprint "")
+    )
+    (path "/2c0c1018-598b-4fc8-b9d4-a31fcf4a7761/852436b6-1300-4275-bae0-61d9f9922697"
+      (reference "D3") (unit 1) (value "LED LM301H") (footprint "")
+    )
+    (path "/2c0c1018-598b-4fc8-b9d4-a31fcf4a7761/37732c08-41be-4a38-ad40-750a9bdcae5b"
+      (reference "D4") (unit 1) (value "LED LM301H") (footprint "")
+    )
+    (path "/2c0c1018-598b-4fc8-b9d4-a31fcf4a7761/64dfab18-ef8e-4480-b99d-fb507733fc7d"
+      (reference "D5") (unit 1) (value "LED LM301H") (footprint "")
+    )
+    (path "/2c0c1018-598b-4fc8-b9d4-a31fcf4a7761/ebbae6a5-96e6-4266-93b7-8e5efb2f2d6e"
+      (reference "D6") (unit 1) (value "LED LM301H") (footprint "")
+    )
+    (path "/2c0c1018-598b-4fc8-b9d4-a31fcf4a7761/db9515a7-7194-4ff9-b278-3a94ea442723"
+      (reference "D7") (unit 1) (value "LED LM301H") (footprint "")
+    )
+    (path "/2c0c1018-598b-4fc8-b9d4-a31fcf4a7761/743a2b13-35a5-400d-a591-4e874666f161"
+      (reference "D8") (unit 1) (value "LED LM301H") (footprint "")
+    )
+    (path "/2c0c1018-598b-4fc8-b9d4-a31fcf4a7761/ac1e3ae3-5442-4e2c-bdcd-060e9f54e0e3"
+      (reference "D9") (unit 1) (value "LED LM301H") (footprint "")
+    )
+    (path "/2c0c1018-598b-4fc8-b9d4-a31fcf4a7761/a0bbba74-3441-4b12-b696-311f508595c6"
+      (reference "D10") (unit 1) (value "LED LM301H") (footprint "")
+    )
+    (path "/2c0c1018-598b-4fc8-b9d4-a31fcf4a7761/98812f4b-08c7-4e1c-9e3d-40caaf666593"
+      (reference "D11") (unit 1) (value "LED LM301H") (footprint "")
+    )
+    (path "/2c0c1018-598b-4fc8-b9d4-a31fcf4a7761/671bd519-7973-4e0f-ba1a-47979f4f2ba0"
+      (reference "D12") (unit 1) (value "LED LM301H") (footprint "")
+    )
+    (path "/2c0c1018-598b-4fc8-b9d4-a31fcf4a7761/a5af4285-7f2d-4220-a0a5-9661cdd9cb98"
+      (reference "D13") (unit 1) (value "LED LM301H") (footprint "")
+    )
+    (path "/2c0c1018-598b-4fc8-b9d4-a31fcf4a7761/3590ec2f-d0af-4d6b-b8a9-50be774e49ea"
+      (reference "D14") (unit 1) (value "LED LM301H") (footprint "")
+    )
+    (path "/2c0c1018-598b-4fc8-b9d4-a31fcf4a7761/7489459a-c948-42da-b0ca-6900bc837438"
+      (reference "D15") (unit 1) (value "LED LM301H") (footprint "")
+    )
+  )
+)

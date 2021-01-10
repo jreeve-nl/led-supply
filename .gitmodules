@@ -1,0 +1,3 @@
+[submodule "kicad-symbols"]
+	path = kicad/kicad-symbols
+	url = git@github.com-jreeve-nl:jreeve-nl/kicad-symbols.git

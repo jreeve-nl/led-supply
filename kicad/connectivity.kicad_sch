@@ -1,0 +1,12 @@
+(kicad_sch (version 20201015) (generator eeschema)
+
+  (paper "A4")
+
+  (title_block
+    (company "iGrow UG")
+  )
+
+  (lib_symbols
+  )
+
+)

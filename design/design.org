@@ -407,7 +407,6 @@ Here we use a resistive load to represent the downstream load experienced by the
 
   class DiodeBridgeParams():
 
-      V_line_nominal = 230      #  (V rms) Nominal line input voltage
       f_line         =  50      #  (Hz)    Nominal line frequency
       V_F            =   0.7    #  (V)     Diode forward voltage drop
 
@@ -418,8 +417,13 @@ Here we use a resistive load to represent the downstream load experienced by the
 
 
       def V_O_max(self):
+          # This is actually V_O_nominal !!
+          return self.supplyInputs.V_line_nominal * np.sqrt(2.0) - 2.0 * self.V_F
 
-          return self.V_line_nominal * np.sqrt(2.0) - 2.0 * self.V_F
+
+      def V_O_min(self):
+
+          return self.supplyInputs.V_line_min * np.sqrt(2.0) - 2.0 * self.V_F
 
 
       def V_O_ripple(self):
@@ -482,7 +486,7 @@ R_L = 1092.6167340190807 Ohm  C = 915.2340146957118 uF
 
 The output reservoir capacitance is calculated such that we maintain a 1% ripple on the output.  Assuming that the capacitor is sized such that it is charged to the rectifier peak output voltage on each cycle, then $V_{O,\text{max}} = V_{\text{pk}} - 2 V_{f} = 230 \sqrt{2} - 1.4 \approx 324$ V.  Assume $|v_{\text{ripple}}| = \gamma V_{\text{O,max}} = 0.01 \cdot 324 = 3.24$ V.  We see from the previous supply calculations that we would need to deliver $P_{\text{I,max}} = 96.0$ W and we take our resistive load to be $R_L = \frac{V_{O,\text{max}}^2}{P_{\text{I,max}}} = \frac{324^2}{96} = 1093.5 \Omega$ .
 
-Assume that the time constant of the output RC combination, $\tau = RC$ is much larger than the output waveform period, then we may linearise the output voltage as the capacitor discharges into the load.  $Q = CV$ and $Q = It$.  We have full-bridge rectification therefore $T = \frac{1}{2f} = 10$ ms.  Approximate the current drawn by the load as $I = \frac{V_{\text{O,max}}{R_L} = \frac{324}{1093.5} = 0.296$ A.  Neglecting the time taken to charge the reservoir capacitor, we have:
+Assume that the time constant of the output RC combination, $\tau = RC$ is much larger than the output waveform period, then we may linearise the output voltage as the capacitor discharges into the load.  $Q = CV$ and $Q = It$.  We have full-bridge rectification therefore $T = \frac{1}{2f} = 10$ ms.  Approximate the current drawn by the load as $I = \frac{V_{\text{O,max}}}{R_L} = \frac{324}{1093.5} = 0.296$ A.  Neglecting the time taken to charge the reservoir capacitor, we have:
 
 \begin{align*}
 C |v_{\text{ripple}}| &= It                          \\
@@ -630,6 +634,200 @@ By Volt-second balance applied to the inductor:
 D = 0.13662926582621165 
 Delta_i_L = 160.0 mA  L = 904.4544267800694 uH
 Delta_v_C = 0.4425 V  C = 4.736657253297398e-08 F
+
+
+#+CAPTION: Buck converter schematic
+#+LABEL:   fig:sim_sch_buck_converter
+[[./sim/images/buck_sim_1_sch.png]]
+
+
+#+CAPTION: Buck converter simulation results
+#+LABEL:   fig:sim_dpl_buck_converter
+[[./sim/images/buck_sim_1_dpl.png]]
+
+
+Combining the diode bridge rectifier and this buck converter and applying a suitable control scheme, we have a solutions that meets the specification.
+
+
+* SEPIC Single Ended Primary Inductance Converter
+
+We like SEPIC because it's basically a buck-boost converter which is in a configuration such that the semiconductor switch, typically MOSFET, has one terminal connected to ground meaning the gate drive arrangement is simplified (drive level is relative to a fixed low potential).  The other advantage is that the output is non-inverting with respect to the input.
+
+We derived the following results:
+
+By Volt-second balance on $L_1$ , $L_2$:
+
+\begin{align*}
+M(D) &= \frac{D}{1 - D}
+\end{align*}
+
+By $Q$ balance on $C_1$, $C_2$:
+
+\begin{align*}
+I_{L_1} &= \frac{D^2}{\left(1-D\right)^2} \frac{V_g}{R}  \\
+&= \frac{D}{\left(1-D\right)} \frac{V_o}{R}              \\
+&= \frac{D}{\left(1-D\right)} I_o
+\end{align*}
+
+and
+
+\begin{align*}
+I_{L_2} &= I_{L_1} \frac{D}{\left(1-D\right)}            \\
+&= I_g
+\end{align*}
+
+Assuming approximately linear ripple, that the time constants are far greater than the switching periods, we have inductor ripple:
+
+\begin{align*}
+\Delta i_{L_1} &= \frac{\left( 1 - D \right) V_O T_s}{L_1}      \\
+\Delta i_{L_2} &= \frac{\left( 1 - D \right) V_O T_s}{L_2}
+\end{align*}
+
+Applying the Boundary Conduction Mode condition:
+
+\begin{align*}
+2 I_{L_1} &\ge \Delta i_{L_1} \\
+I_{L_1} &\ge = \frac{\left ( 1 - D \right ) V_O T_s}{2 I_{L_1}} = \frac{\left ( 1 - D \right )^2 R }{D2f_s}   \\
+2 I_{L_2} &\ge \Delta i_{L_2} \\
+I_{L_2} &\ge \frac{\left ( 1 - D \right ) V_O T_s}{2 I_{L_2}} = \frac{\left ( 1 - D \right ) R }{2f_s} 
+\end{align*}
+
+
+
+
+#+NAME: led-supply-design-compute-sepic-design-params
+#+BEGIN_SRC python :results output scalar raw replace
+
+  class SepicDesignParams():
+
+      f_s             = 132e3    #  (Hz)  Nominal switching frequency
+                                 #        (commercial transformers available)
+      T_s             = 1/f_s    #  (s)   Nominal switching period
+      RATIO_Delta_i_L =   0.1    #  ()    Ratio of inductor/output ripple current
+                                 #        to nominal current
+      RATIO_Delta_v_C =   0.01   #  ()    Ratio of capacitor/output ripple
+                                 #        voltage to nominal output voltage
+                                 #        (ripple current contributes to this)
+
+      def __init__(self, diodeBridgeParams, supplyOutputs):
+          self.diodeBridgeParams = diodeBridgeParams
+          self.supplyOutputs = supplyOutputs
+
+
+      def D_min(self):
+
+          return self.supplyOutputs.V_O_nominal()                               \
+              / (self.diodeBridgeParams.V_O_max()                               \
+                 + self.supplyOutputs.V_O_nominal())
+
+
+      def D_max(self):
+
+          return self.supplyOutputs.V_O_nominal()                               \
+              / (self.diodeBridgeParams.V_O_min()                               \
+                 + self.supplyOutputs.V_O_nominal())
+
+
+      # Ignore this for now.  Select L values based on BCM condition
+      def Delta_i_L_1(self):
+
+          return self.supplyOutputs.I_O_max() * self.RATIO_Delta_i_L
+
+      # Ignore this for now.  Select L values based on BCM condition
+      def Delta_i_L_2(self):
+
+          return self.supplyOutputs.I_O_max() * self.RATIO_Delta_i_L
+
+
+      def Delta_v_C_1(self):
+
+          return self.supplyOutputs.V_O_nominal() * self.RATIO_Delta_v_C
+
+
+      def Delta_v_C_2(self):
+
+          return self.supplyOutputs.V_O_nominal() * self.RATIO_Delta_v_C
+
+
+      def L_1_min(self):
+          L_1_min = (1 - self.D_min()) ** 2 * self.supplyOutputs.V_O_nominal()  \
+              / (2.0 * self.D_min() * self.supplyOutputs.I_O_nominal()          \
+                 ,* self.f_s) * 1e3 * 1e6
+          return L_1_min
+
+
+      def L_2_min(self):
+          L_2_min = (1 - self.D_min()) * self.supplyOutputs.V_O_nominal()       \
+              / (2.0 * self.supplyOutputs.I_O_nominal()                         \
+                 ,* self.f_s) * 1e3 * 1e6
+          return L_2_min
+
+
+      def C_1_min(self):
+          C_1_min = self.supplyOutputs.I_O_nominal() * self.D_max() * self.T_s  \
+              / self.Delta_v_C_1() * 1e6 * 1e-3   #  uF
+          return C_1_min
+
+
+      def C_2_min(self):
+          C_2_min = self.supplyOutputs.I_O_nominal() * self.D_max() * self.T_s  \
+              / self.Delta_v_C_2() * 1e6 * 1e-3   #  uF
+          return C_2_min
+
+
+  def compute_sepic_design_params():
+
+      supplyOutputs = SupplyOutputs(LEDFixtureParams())
+      diodeBridgeParams = DiodeBridgeParams(supplyOutputs,
+                                            SupplyInputs(supplyOutputs))
+
+      sepicDesignParams = SepicDesignParams(diodeBridgeParams,
+                                            supplyOutputs)
+
+      print("D_min = {0}  D_max = {1}".format(sepicDesignParams.D_min(),
+                                              sepicDesignParams.D_max()))
+      print("L_1_min = {0} uH  L_2_min = {1} uH"
+            .format(sepicDesignParams.L_1_min(), sepicDesignParams.L_2_min()))
+      print("Delta_v_C_1 = {0} V  C_1_min = {1} uF"
+            .format(sepicDesignParams.Delta_v_C_1(), sepicDesignParams.C_1_min()))
+      print("Delta_v_C_2 = {0} V  C_2_min = {1} uF"
+            .format(sepicDesignParams.Delta_v_C_2(), sepicDesignParams.C_2_min()))
+
+      return sepicDesignParams
+
+#+END_SRC
+
+
+#+NAME: led-supply-design-compute-sepic-design-params
+#+BEGIN_SRC python :noweb yes :tangle compute_sepic_design_params.py :exports none :results output scalar raw replace
+  <<led-supply-design-imports>>
+
+  <<led-supply-design-constants>>
+
+  <<led-supply-design-compute-supply-outputs>>
+
+  <<led-supply-design-compute-supply-inputs>>
+
+  <<led-supply-design-compute-diode-bridge-params>>
+
+  <<led-supply-design-compute-sepic-design-params>>
+
+  def main():
+      compute_sepic_design_params()
+
+  <<led-supply-design-call-main>>
+#+END_SRC
+
+#+RESULTS: led-supply-design-compute-sepic-design-params
+D_min = 0.1202056553830649  D_max = 0.24013498844070852
+L_1_min = 684.9476432608474 uH  L_2_min = 93.58389362812352 uH
+Delta_v_C_1 = 0.4425 V  C_1_min = 6.478249053927483 uF
+Delta_v_C_2 = 0.4425 V  C_2_min = 6.478249053927483 uF
+
+
+
+*  Transformer isolation
+
 
 
 

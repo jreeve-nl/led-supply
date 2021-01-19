@@ -1,0 +1,37 @@
+<Qucs Schematic 0.0.22>
+<Properties>
+  <View=0,60,1358,1365,1,0,0>
+  <Grid=10,10,0>
+  <DataSet=sepic_sim_parasitics_1.dat>
+  <DataDisplay=sepic_sim_parasitics_1.sch>
+  <OpenDisplay=1>
+  <Script=sepic_sim_parasitics_1.m>
+  <RunScript=0>
+  <showFrame=0>
+  <FrameText0=Title>
+  <FrameText1=Drawn By:>
+  <FrameText2=Date:>
+  <FrameText3=Revision:>
+</Properties>
+<Symbol>
+</Symbol>
+<Components>
+</Components>
+<Wires>
+</Wires>
+<Diagrams>
+  <Rect 120 424 1143 344 3 #c0c0c0 1 00 1 0.0008 5e-07 0.00081 1 0 10 80 1 -0.1 0.2 1.1 315 0 225 "" "" "">
+	<"ngspice/tran.v(pr1)" #0000ff 0 3 0 0 0>
+	<"ngspice/tran.v(pr2)" #ff0000 0 3 0 0 1>
+  </Rect>
+  <Rect 120 800 1136 300 3 #c0c0c0 1 00 1 0.0008 1e-05 0.001 1 -5.44053 10 60 1 -1 0.5 1 315 0 225 "" "" "">
+	<"ngspice/tran.v(pr2)" #ff0000 0 3 0 0 1>
+	<"ngspice/tran.i(pr4)" #0000ff 0 3 0 0 0>
+  </Rect>
+  <Rect 120 1188 1133 298 3 #c0c0c0 1 00 1 0 5e-05 0.001 1 -11.3843 20 66.9025 1 -1 0.5 1 315 0 225 "" "" "">
+	<"ngspice/tran.i(pr4)" #0000ff 0 3 0 0 0>
+	<"ngspice/tran.i(pr5)" #ff0000 0 3 0 0 1>
+  </Rect>
+</Diagrams>
+<Paintings>
+</Paintings>

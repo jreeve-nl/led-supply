@@ -222,7 +222,7 @@ led_supply_design.py:
 
       def V_O_nominal(self):
 
-          return self.V_O_min() + 3.0    # arbitrary!
+          return self.V_O_min() + 0.25    # arbitrary!
 
     
       def v_O_ripple_pk(self):
@@ -537,7 +537,7 @@ M(D) &= D
 
 By Volt-second balance applied to the inductor:
 
-\beign{align}
+\begin{align}
 \Delta i_L &= \frac{\left ( V_I - V_O \right ) D T_s}{2L} 
 \end{align}
 
@@ -584,10 +584,10 @@ By Volt-second balance applied to the inductor:
           return L
 
 
-      def C(self):
-          C = self.supplyOutputs.V_O_nominal() * self.D() * self.T_s           \
-              / (2.0 * self.diodeBridgeParams.R_L() * self.Delta_v_C())
-          return C
+      def C_min(self):
+          C_min = self.supplyOutputs.I_O_max() * self.D() * self.T_s           \
+              / (2.0 * self.Delta_v_C()) * 1e-3 * 1e6  #   uF
+          return C_min
 
 
   def compute_buck_design_params():
@@ -602,8 +602,8 @@ By Volt-second balance applied to the inductor:
       print("D = {0} ".format(buckDesignParams.D()))
       print("Delta_i_L = {0} mA  L = {1} uH"
             .format(buckDesignParams.Delta_i_L(), buckDesignParams.L()))
-      print("Delta_v_C = {0} V  C = {1} F"
-            .format(buckDesignParams.Delta_v_C(), buckDesignParams.C()))
+      print("Delta_v_C = {0} V  C_min = {1} uF"
+            .format(buckDesignParams.Delta_v_C(), buckDesignParams.C_min()))
 
       return buckDesignParams
 
@@ -631,9 +631,9 @@ By Volt-second balance applied to the inductor:
 #+END_SRC
 
 #+RESULTS: led-supply-design-compute-buck-design-params
-D = 0.13662926582621165 
-Delta_i_L = 160.0 mA  L = 904.4544267800694 uH
-Delta_v_C = 0.4425 V  C = 4.736657253297398e-08 F
+D = 0.12813818150932843 
+Delta_i_L = 160.0 mA  L = 856.5877241326438 uH
+Delta_v_C = 0.41500000000000004 V  C_min = 1.871313348073434 uF
 
 
 #+CAPTION: Buck converter schematic
@@ -693,6 +693,13 @@ I_{L_2} &\ge \frac{\left ( 1 - D \right ) V_O T_s}{2 I_{L_2}} = \frac{\left ( 1 
 \end{align*}
 
 
+
+By use of $\Delta Q = C \Delta V$ and integrating the current under the small ripple assumption:
+
+\begin{align*}
+C_1 &\ge \frac{I_{\text{O, max}} D_{\text{max}}}{f_s \Delta V_1}   \\
+C_2 &\ge \frac{I_{\text{O, max}} D_{\text{max}}}{f_s \Delta V_2} 
+\end{align*}
 
 
 #+NAME: led-supply-design-compute-sepic-design-params
@@ -819,10 +826,20 @@ I_{L_2} &\ge \frac{\left ( 1 - D \right ) V_O T_s}{2 I_{L_2}} = \frac{\left ( 1 
 #+END_SRC
 
 #+RESULTS: led-supply-design-compute-sepic-design-params
-D_min = 0.1202056553830649  D_max = 0.24013498844070852
-L_1_min = 684.9476432608474 uH  L_2_min = 93.58389362812352 uH
-Delta_v_C_1 = 0.4425 V  C_1_min = 6.478249053927483 uF
-Delta_v_C_2 = 0.4425 V  C_2_min = 6.478249053927483 uF
+D_min = 0.11358376447989131  D_max = 0.22862323673775076
+L_1_min = 690.1029941628062 uH  L_2_min = 88.4285427261647 uH
+Delta_v_C_1 = 0.41500000000000004 V  C_1_min = 6.576392794518592 uF
+Delta_v_C_2 = 0.41500000000000004 V  C_2_min = 6.576392794518592 uF
+
+
+#+CAPTION: SEPIC converter schematic
+#+LABEL:   fig:sim_sch_sepic_converter
+[[./sim/images/sepic_sim_1_sch.png]]
+
+
+#+CAPTION: SEPIC converter simulation results
+#+LABEL:   fig:sim_dpl_sepic_converter
+[[./sim/images/sepic_sim_1_dpl.png]]
 
 
 

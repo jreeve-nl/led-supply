@@ -735,15 +735,16 @@ C_2 &\ge \frac{I_{\text{O, max}} D_{\text{max}}}{f_s \Delta V_2}
                  + self.supplyOutputs.V_O_nominal())
 
 
-      # Ignore this for now.  Select L values based on BCM condition
       def Delta_i_L_1(self):
 
-          return self.supplyOutputs.I_O_max() * self.RATIO_Delta_i_L
+          return (1 - self.D_min()) * self.supplyOutputs.V_O_nominal()          \
+              / (self.L_1_min() * self.f_s) * 2.0 * 1e6
 
-      # Ignore this for now.  Select L values based on BCM condition
+
       def Delta_i_L_2(self):
 
-          return self.supplyOutputs.I_O_max() * self.RATIO_Delta_i_L
+          return (1 - self.D_min()) * self.supplyOutputs.V_O_nominal()          \
+              / (self.L_2_min() * self.f_s) * 2.0 * 1e6
 
 
       def Delta_v_C_1(self):
@@ -758,7 +759,7 @@ C_2 &\ge \frac{I_{\text{O, max}} D_{\text{max}}}{f_s \Delta V_2}
 
       def L_1_min(self):
           L_1_min = (1 - self.D_min()) ** 2 * self.supplyOutputs.V_O_nominal()  \
-              / (2.0 * self.D_min() * self.supplyOutputs.I_O_nominal()          \
+              / (self.D_min() * 2.0 * self.supplyOutputs.I_O_nominal()          \
                  ,* self.f_s) * 1e3 * 1e6
           return L_1_min
 
@@ -795,6 +796,9 @@ C_2 &\ge \frac{I_{\text{O, max}} D_{\text{max}}}{f_s \Delta V_2}
                                               sepicDesignParams.D_max()))
       print("L_1_min = {0} uH  L_2_min = {1} uH"
             .format(sepicDesignParams.L_1_min(), sepicDesignParams.L_2_min()))
+      print("Delta_i_L_1 = {0} A  Delta_i_L_2 = {1} A"
+            .format(sepicDesignParams.Delta_i_L_1(),                        \
+                    sepicDesignParams.Delta_i_L_2()))
       print("Delta_v_C_1 = {0} V  C_1_min = {1} uF"
             .format(sepicDesignParams.Delta_v_C_1(), sepicDesignParams.C_1_min()))
       print("Delta_v_C_2 = {0} V  C_2_min = {1} uF"
@@ -828,6 +832,7 @@ C_2 &\ge \frac{I_{\text{O, max}} D_{\text{max}}}{f_s \Delta V_2}
 #+RESULTS: led-supply-design-compute-sepic-design-params
 D_min = 0.11358376447989131  D_max = 0.22862323673775076
 L_1_min = 690.1029941628062 uH  L_2_min = 88.4285427261647 uH
+Delta_i_L_1 = 0.8076588410284944 A  Delta_i_L_2 = 6.303030303030303 A
 Delta_v_C_1 = 0.41500000000000004 V  C_1_min = 6.576392794518592 uF
 Delta_v_C_2 = 0.41500000000000004 V  C_2_min = 6.576392794518592 uF
 

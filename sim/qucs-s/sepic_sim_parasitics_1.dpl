@@ -1,6 +1,6 @@
 <Qucs Schematic 0.0.22>
 <Properties>
-  <View=0,60,1358,1365,1,0,0>
+  <View=0,60,1358,1330,1,0,300>
   <Grid=10,10,0>
   <DataSet=sepic_sim_parasitics_1.dat>
   <DataDisplay=sepic_sim_parasitics_1.sch>

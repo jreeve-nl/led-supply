@@ -4,3 +4,9 @@
 [submodule "kicad/kicad-footprints"]
 	path = kicad/kicad-footprints
 	url = git@github.com-jreeve-nl:jreeve-nl/kicad-footprints.git
+[submodule "openscad/NopSCADlib"]
+	path = openscad/NopSCADlib
+	url = git@github.com:nophead/NopSCADlib.git
+[submodule "openscad/nutsnbolts"]
+	path = openscad/nutsnbolts
+	url = git@github.com:JohK/nutsnbolts.git

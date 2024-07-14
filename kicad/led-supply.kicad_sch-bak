@@ -1,0 +1,245 @@
+(kicad_sch
+	(version 20231120)
+	(generator "eeschema")
+	(generator_version "8.0")
+	(uuid "a5bc576a-16b1-469b-95bf-cd73ad37d133")
+	(paper "A4")
+	(title_block
+		(title "Grow Light")
+		(company "Kiwi Devices Limited")
+	)
+	(lib_symbols)
+	(sheet
+		(at 110.49 25.4)
+		(size 86.36 43.18)
+		(stroke
+			(width 0.001)
+			(type solid)
+			(color 132 0 132 1)
+		)
+		(fill
+			(color 255 255 255 0.0000)
+		)
+		(uuid "173e1528-7550-4235-b83a-f26eb8adb0a7")
+		(property "Sheetname" "Rectifier"
+			(at 110.49 24.7641 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "rectifier.kicad_sch"
+			(at 110.49 69.0889 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "led-supply"
+				(path "/a5bc576a-16b1-469b-95bf-cd73ad37d133"
+					(page "3")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 208.28 33.02)
+		(size 63.5 17.78)
+		(stroke
+			(width 0.001)
+			(type solid)
+			(color 132 0 132 1)
+		)
+		(fill
+			(color 255 255 255 0.0000)
+		)
+		(uuid "2c0c1018-598b-4fc8-b9d4-a31fcf4a7761")
+		(property "Sheetname" "LED String"
+			(at 208.28 32.3841 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "led-string.kicad_sch"
+			(at 208.28 51.3089 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "led-supply"
+				(path "/a5bc576a-16b1-469b-95bf-cd73ad37d133"
+					(page "2")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 25.4 127)
+		(size 86.36 25.4)
+		(stroke
+			(width 0.001)
+			(type solid)
+			(color 132 0 132 1)
+		)
+		(fill
+			(color 255 255 255 0.0000)
+		)
+		(uuid "2f21cc9e-f96d-43f6-8f4f-bda07628fd66")
+		(property "Sheetname" "Auxilliary Supply"
+			(at 25.4 126.3641 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "aux-supply.kicad_sch"
+			(at 25.4 152.9089 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "led-supply"
+				(path "/a5bc576a-16b1-469b-95bf-cd73ad37d133"
+					(page "6")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 110.49 76.2)
+		(size 86.36 30.48)
+		(stroke
+			(width 0.001)
+			(type solid)
+			(color 132 0 132 1)
+		)
+		(fill
+			(color 255 255 255 0.0000)
+		)
+		(uuid "7205d0f2-8663-48d0-85b5-5485cfbb7c84")
+		(property "Sheetname" "Rectifier Control"
+			(at 110.49 75.5641 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "rectifier-control.kicad_sch"
+			(at 110.49 107.1889 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "led-supply"
+				(path "/a5bc576a-16b1-469b-95bf-cd73ad37d133"
+					(page "4")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 19.05 26.67)
+		(size 83.82 41.91)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "ce277001-7143-474c-ab3e-09f92a0bfe46")
+		(property "Sheetname" "Line Protection"
+			(at 19.05 25.9584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "line-protection.kicad_sch"
+			(at 19.05 69.1646 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "led-supply"
+				(path "/a5bc576a-16b1-469b-95bf-cd73ad37d133"
+					(page "7")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 25.4 160.02)
+		(size 86.36 30.48)
+		(stroke
+			(width 0.001)
+			(type solid)
+			(color 132 0 132 1)
+		)
+		(fill
+			(color 255 255 255 0.0000)
+		)
+		(uuid "f1c533f3-880e-43af-939d-d1b04b8807dd")
+		(property "Sheetname" "Connectivity"
+			(at 25.4 159.3841 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "connectivity.kicad_sch"
+			(at 25.4 191.0089 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "led-supply"
+				(path "/a5bc576a-16b1-469b-95bf-cd73ad37d133"
+					(page "5")
+				)
+			)
+		)
+	)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+)

@@ -1,479 +1,1639 @@
-(kicad_sch (version 20201015) (generator eeschema)
-
-  (paper "A4")
-
-  (title_block
-    (company "iGrow UG")
-  )
-
-  (lib_symbols
-    (symbol "Device:LED" (pin_numbers hide) (pin_names (offset 1.016) hide) (in_bom yes) (on_board yes)
-      (property "Reference" "D" (id 0) (at 0 2.54 0)
-        (effects (font (size 1.27 1.27)))
-      )
-      (property "Value" "LED" (id 1) (at 0 -2.54 0)
-        (effects (font (size 1.27 1.27)))
-      )
-      (property "Footprint" "" (id 2) (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "Datasheet" "~" (id 3) (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_keywords" "LED diode" (id 4) (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_description" "Light emitting diode" (id 5) (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_fp_filters" "LED* LED_SMD:* LED_THT:*" (id 6) (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (symbol "LED_0_1"
-        (polyline
-          (pts
-            (xy -1.27 -1.27)
-            (xy -1.27 1.27)
-          )
-          (stroke (width 0.254)) (fill (type none))
-        )
-        (polyline
-          (pts
-            (xy -1.27 0)
-            (xy 1.27 0)
-          )
-          (stroke (width 0)) (fill (type none))
-        )
-        (polyline
-          (pts
-            (xy 1.27 -1.27)
-            (xy 1.27 1.27)
-            (xy -1.27 0)
-            (xy 1.27 -1.27)
-          )
-          (stroke (width 0.254)) (fill (type none))
-        )
-        (polyline
-          (pts
-            (xy -3.048 -0.762)
-            (xy -4.572 -2.286)
-            (xy -3.81 -2.286)
-            (xy -4.572 -2.286)
-            (xy -4.572 -1.524)
-          )
-          (stroke (width 0)) (fill (type none))
-        )
-        (polyline
-          (pts
-            (xy -1.778 -0.762)
-            (xy -3.302 -2.286)
-            (xy -2.54 -2.286)
-            (xy -3.302 -2.286)
-            (xy -3.302 -1.524)
-          )
-          (stroke (width 0)) (fill (type none))
-        )
-      )
-      (symbol "LED_1_1"
-        (pin passive line (at -3.81 0 0) (length 2.54)
-          (name "K" (effects (font (size 1.27 1.27))))
-          (number "1" (effects (font (size 1.27 1.27))))
-        )
-        (pin passive line (at 3.81 0 180) (length 2.54)
-          (name "A" (effects (font (size 1.27 1.27))))
-          (number "2" (effects (font (size 1.27 1.27))))
-        )
-      )
-    )
-    (symbol "power:GND" (power) (pin_names (offset 0)) (in_bom yes) (on_board yes)
-      (property "Reference" "#PWR" (id 0) (at 0 -6.35 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "Value" "GND" (id 1) (at 0 -3.81 0)
-        (effects (font (size 1.27 1.27)))
-      )
-      (property "Footprint" "" (id 2) (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "Datasheet" "" (id 3) (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_keywords" "power-flag" (id 4) (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_description" "Power symbol creates a global label with name \"GND\" , ground" (id 5) (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (symbol "GND_0_1"
-        (polyline
-          (pts
-            (xy 0 0)
-            (xy 0 -1.27)
-            (xy 1.27 -1.27)
-            (xy 0 -2.54)
-            (xy -1.27 -1.27)
-            (xy 0 -1.27)
-          )
-          (stroke (width 0)) (fill (type none))
-        )
-      )
-      (symbol "GND_1_1"
-        (pin power_in line (at 0 0 270) (length 0) hide
-          (name "GND" (effects (font (size 1.27 1.27))))
-          (number "1" (effects (font (size 1.27 1.27))))
-        )
-      )
-    )
-  )
-
-
-  (wire (pts (xy 78.74 30.48) (xy 104.14 30.48))
-    (stroke (width 0) (type solid) (color 0 0 0 0))
-  )
-  (wire (pts (xy 104.14 30.48) (xy 104.14 46.99))
-    (stroke (width 0) (type solid) (color 0 0 0 0))
-  )
-  (wire (pts (xy 104.14 54.61) (xy 104.14 64.77))
-    (stroke (width 0) (type solid) (color 0 0 0 0))
-  )
-  (wire (pts (xy 104.14 72.39) (xy 104.14 82.55))
-    (stroke (width 0) (type solid) (color 0 0 0 0))
-  )
-  (wire (pts (xy 104.14 90.17) (xy 104.14 100.33))
-    (stroke (width 0) (type solid) (color 0 0 0 0))
-  )
-  (wire (pts (xy 104.14 107.95) (xy 104.14 118.11))
-    (stroke (width 0) (type solid) (color 0 0 0 0))
-  )
-  (wire (pts (xy 104.14 125.73) (xy 104.14 139.7))
-    (stroke (width 0) (type solid) (color 0 0 0 0))
-  )
-  (wire (pts (xy 104.14 139.7) (xy 121.92 139.7))
-    (stroke (width 0) (type solid) (color 0 0 0 0))
-  )
-  (wire (pts (xy 121.92 38.1) (xy 134.62 38.1))
-    (stroke (width 0) (type solid) (color 0 0 0 0))
-  )
-  (wire (pts (xy 121.92 139.7) (xy 121.92 38.1))
-    (stroke (width 0) (type solid) (color 0 0 0 0))
-  )
-  (wire (pts (xy 134.62 38.1) (xy 134.62 46.99))
-    (stroke (width 0) (type solid) (color 0 0 0 0))
-  )
-  (wire (pts (xy 134.62 54.61) (xy 134.62 64.77))
-    (stroke (width 0) (type solid) (color 0 0 0 0))
-  )
-  (wire (pts (xy 134.62 72.39) (xy 134.62 82.55))
-    (stroke (width 0) (type solid) (color 0 0 0 0))
-  )
-  (wire (pts (xy 134.62 90.17) (xy 134.62 100.33))
-    (stroke (width 0) (type solid) (color 0 0 0 0))
-  )
-  (wire (pts (xy 134.62 107.95) (xy 134.62 118.11))
-    (stroke (width 0) (type solid) (color 0 0 0 0))
-  )
-  (wire (pts (xy 134.62 125.73) (xy 134.62 139.7))
-    (stroke (width 0) (type solid) (color 0 0 0 0))
-  )
-  (wire (pts (xy 134.62 139.7) (xy 152.4 139.7))
-    (stroke (width 0) (type solid) (color 0 0 0 0))
-  )
-  (wire (pts (xy 152.4 38.1) (xy 165.1 38.1))
-    (stroke (width 0) (type solid) (color 0 0 0 0))
-  )
-  (wire (pts (xy 152.4 139.7) (xy 152.4 38.1))
-    (stroke (width 0) (type solid) (color 0 0 0 0))
-  )
-  (wire (pts (xy 165.1 38.1) (xy 165.1 46.99))
-    (stroke (width 0) (type solid) (color 0 0 0 0))
-  )
-  (wire (pts (xy 165.1 54.61) (xy 165.1 64.77))
-    (stroke (width 0) (type solid) (color 0 0 0 0))
-  )
-  (wire (pts (xy 165.1 72.39) (xy 165.1 82.55))
-    (stroke (width 0) (type solid) (color 0 0 0 0))
-  )
-  (wire (pts (xy 165.1 90.17) (xy 165.1 100.33))
-    (stroke (width 0) (type solid) (color 0 0 0 0))
-  )
-  (wire (pts (xy 165.1 107.95) (xy 165.1 118.11))
-    (stroke (width 0) (type solid) (color 0 0 0 0))
-  )
-  (wire (pts (xy 165.1 125.73) (xy 165.1 139.7))
-    (stroke (width 0) (type solid) (color 0 0 0 0))
-  )
-
-  (hierarchical_label "+48VDC" (shape input) (at 78.74 30.48 180)
-    (effects (font (size 1.27 1.27)) (justify right))
-  )
-
-  (symbol (lib_id "power:GND") (at 165.1 139.7 0) (unit 1)
-    (in_bom yes) (on_board yes)
-    (uuid "3248e693-80c6-4707-8594-bcd4286cb582")
-    (property "Reference" "#PWR01" (id 0) (at 165.1 146.05 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Value" "GND" (id 1) (at 166.37 144.78 0))
-    (property "Footprint" "" (id 2) (at 165.1 139.7 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "" (id 3) (at 165.1 139.7 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-  )
-
-  (symbol (lib_id "Device:LED") (at 104.14 50.8 90) (unit 1)
-    (in_bom yes) (on_board yes)
-    (uuid "89b058fb-1220-451b-a1de-bc5e23a025bb")
-    (property "Reference" "D1" (id 0) (at 107.95 50.8 90)
-      (effects (font (size 1.27 1.27)) (justify right))
-    )
-    (property "Value" "LED LM301H" (id 1) (at 107.95 53.34 90)
-      (effects (font (size 1.27 1.27)) (justify right))
-    )
-    (property "Footprint" "" (id 2) (at 104.14 50.8 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (id 3) (at 104.14 50.8 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-  )
-
-  (symbol (lib_id "Device:LED") (at 104.14 68.58 90) (unit 1)
-    (in_bom yes) (on_board yes)
-    (uuid "60c39c56-7ebd-425a-a24d-be11261458ff")
-    (property "Reference" "D2" (id 0) (at 107.95 68.58 90)
-      (effects (font (size 1.27 1.27)) (justify right))
-    )
-    (property "Value" "LED LM301H" (id 1) (at 107.95 71.12 90)
-      (effects (font (size 1.27 1.27)) (justify right))
-    )
-    (property "Footprint" "" (id 2) (at 104.14 68.58 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (id 3) (at 104.14 68.58 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-  )
-
-  (symbol (lib_id "Device:LED") (at 104.14 86.36 90) (unit 1)
-    (in_bom yes) (on_board yes)
-    (uuid "852436b6-1300-4275-bae0-61d9f9922697")
-    (property "Reference" "D3" (id 0) (at 107.95 86.36 90)
-      (effects (font (size 1.27 1.27)) (justify right))
-    )
-    (property "Value" "LED LM301H" (id 1) (at 107.95 88.9 90)
-      (effects (font (size 1.27 1.27)) (justify right))
-    )
-    (property "Footprint" "" (id 2) (at 104.14 86.36 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (id 3) (at 104.14 86.36 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-  )
-
-  (symbol (lib_id "Device:LED") (at 104.14 104.14 90) (unit 1)
-    (in_bom yes) (on_board yes)
-    (uuid "37732c08-41be-4a38-ad40-750a9bdcae5b")
-    (property "Reference" "D4" (id 0) (at 107.95 104.14 90)
-      (effects (font (size 1.27 1.27)) (justify right))
-    )
-    (property "Value" "LED LM301H" (id 1) (at 107.95 106.68 90)
-      (effects (font (size 1.27 1.27)) (justify right))
-    )
-    (property "Footprint" "" (id 2) (at 104.14 104.14 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (id 3) (at 104.14 104.14 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-  )
-
-  (symbol (lib_id "Device:LED") (at 104.14 121.92 90) (unit 1)
-    (in_bom yes) (on_board yes)
-    (uuid "64dfab18-ef8e-4480-b99d-fb507733fc7d")
-    (property "Reference" "D5" (id 0) (at 107.95 121.92 90)
-      (effects (font (size 1.27 1.27)) (justify right))
-    )
-    (property "Value" "LED LM301H" (id 1) (at 107.95 124.46 90)
-      (effects (font (size 1.27 1.27)) (justify right))
-    )
-    (property "Footprint" "" (id 2) (at 104.14 121.92 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (id 3) (at 104.14 121.92 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-  )
-
-  (symbol (lib_id "Device:LED") (at 134.62 50.8 90) (unit 1)
-    (in_bom yes) (on_board yes)
-    (uuid "ebbae6a5-96e6-4266-93b7-8e5efb2f2d6e")
-    (property "Reference" "D6" (id 0) (at 138.43 50.8 90)
-      (effects (font (size 1.27 1.27)) (justify right))
-    )
-    (property "Value" "LED LM301H" (id 1) (at 138.43 53.34 90)
-      (effects (font (size 1.27 1.27)) (justify right))
-    )
-    (property "Footprint" "" (id 2) (at 134.62 50.8 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (id 3) (at 134.62 50.8 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-  )
-
-  (symbol (lib_id "Device:LED") (at 134.62 68.58 90) (unit 1)
-    (in_bom yes) (on_board yes)
-    (uuid "db9515a7-7194-4ff9-b278-3a94ea442723")
-    (property "Reference" "D7" (id 0) (at 138.43 68.58 90)
-      (effects (font (size 1.27 1.27)) (justify right))
-    )
-    (property "Value" "LED LM301H" (id 1) (at 138.43 71.12 90)
-      (effects (font (size 1.27 1.27)) (justify right))
-    )
-    (property "Footprint" "" (id 2) (at 134.62 68.58 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (id 3) (at 134.62 68.58 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-  )
-
-  (symbol (lib_id "Device:LED") (at 134.62 86.36 90) (unit 1)
-    (in_bom yes) (on_board yes)
-    (uuid "743a2b13-35a5-400d-a591-4e874666f161")
-    (property "Reference" "D8" (id 0) (at 138.43 86.36 90)
-      (effects (font (size 1.27 1.27)) (justify right))
-    )
-    (property "Value" "LED LM301H" (id 1) (at 138.43 88.9 90)
-      (effects (font (size 1.27 1.27)) (justify right))
-    )
-    (property "Footprint" "" (id 2) (at 134.62 86.36 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (id 3) (at 134.62 86.36 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-  )
-
-  (symbol (lib_id "Device:LED") (at 134.62 104.14 90) (unit 1)
-    (in_bom yes) (on_board yes)
-    (uuid "ac1e3ae3-5442-4e2c-bdcd-060e9f54e0e3")
-    (property "Reference" "D9" (id 0) (at 138.43 104.14 90)
-      (effects (font (size 1.27 1.27)) (justify right))
-    )
-    (property "Value" "LED LM301H" (id 1) (at 138.43 106.68 90)
-      (effects (font (size 1.27 1.27)) (justify right))
-    )
-    (property "Footprint" "" (id 2) (at 134.62 104.14 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (id 3) (at 134.62 104.14 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-  )
-
-  (symbol (lib_id "Device:LED") (at 134.62 121.92 90) (unit 1)
-    (in_bom yes) (on_board yes)
-    (uuid "a0bbba74-3441-4b12-b696-311f508595c6")
-    (property "Reference" "D10" (id 0) (at 138.43 121.92 90)
-      (effects (font (size 1.27 1.27)) (justify right))
-    )
-    (property "Value" "LED LM301H" (id 1) (at 138.43 124.46 90)
-      (effects (font (size 1.27 1.27)) (justify right))
-    )
-    (property "Footprint" "" (id 2) (at 134.62 121.92 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (id 3) (at 134.62 121.92 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-  )
-
-  (symbol (lib_id "Device:LED") (at 165.1 50.8 90) (unit 1)
-    (in_bom yes) (on_board yes)
-    (uuid "98812f4b-08c7-4e1c-9e3d-40caaf666593")
-    (property "Reference" "D11" (id 0) (at 168.91 50.8 90)
-      (effects (font (size 1.27 1.27)) (justify right))
-    )
-    (property "Value" "LED LM301H" (id 1) (at 168.91 53.34 90)
-      (effects (font (size 1.27 1.27)) (justify right))
-    )
-    (property "Footprint" "" (id 2) (at 165.1 50.8 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (id 3) (at 165.1 50.8 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-  )
-
-  (symbol (lib_id "Device:LED") (at 165.1 68.58 90) (unit 1)
-    (in_bom yes) (on_board yes)
-    (uuid "671bd519-7973-4e0f-ba1a-47979f4f2ba0")
-    (property "Reference" "D12" (id 0) (at 168.91 68.58 90)
-      (effects (font (size 1.27 1.27)) (justify right))
-    )
-    (property "Value" "LED LM301H" (id 1) (at 168.91 71.12 90)
-      (effects (font (size 1.27 1.27)) (justify right))
-    )
-    (property "Footprint" "" (id 2) (at 165.1 68.58 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (id 3) (at 165.1 68.58 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-  )
-
-  (symbol (lib_id "Device:LED") (at 165.1 86.36 90) (unit 1)
-    (in_bom yes) (on_board yes)
-    (uuid "a5af4285-7f2d-4220-a0a5-9661cdd9cb98")
-    (property "Reference" "D13" (id 0) (at 168.91 86.36 90)
-      (effects (font (size 1.27 1.27)) (justify right))
-    )
-    (property "Value" "LED LM301H" (id 1) (at 168.91 88.9 90)
-      (effects (font (size 1.27 1.27)) (justify right))
-    )
-    (property "Footprint" "" (id 2) (at 165.1 86.36 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (id 3) (at 165.1 86.36 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-  )
-
-  (symbol (lib_id "Device:LED") (at 165.1 104.14 90) (unit 1)
-    (in_bom yes) (on_board yes)
-    (uuid "3590ec2f-d0af-4d6b-b8a9-50be774e49ea")
-    (property "Reference" "D14" (id 0) (at 168.91 104.14 90)
-      (effects (font (size 1.27 1.27)) (justify right))
-    )
-    (property "Value" "LED LM301H" (id 1) (at 168.91 106.68 90)
-      (effects (font (size 1.27 1.27)) (justify right))
-    )
-    (property "Footprint" "" (id 2) (at 165.1 104.14 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (id 3) (at 165.1 104.14 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-  )
-
-  (symbol (lib_id "Device:LED") (at 165.1 121.92 90) (unit 1)
-    (in_bom yes) (on_board yes)
-    (uuid "7489459a-c948-42da-b0ca-6900bc837438")
-    (property "Reference" "D15" (id 0) (at 168.91 121.92 90)
-      (effects (font (size 1.27 1.27)) (justify right))
-    )
-    (property "Value" "LED LM301H" (id 1) (at 168.91 124.46 90)
-      (effects (font (size 1.27 1.27)) (justify right))
-    )
-    (property "Footprint" "" (id 2) (at 165.1 121.92 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (id 3) (at 165.1 121.92 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-  )
+(kicad_sch
+	(version 20240417)
+	(generator "eeschema")
+	(generator_version "8.99")
+	(uuid "166d9425-0da7-47b6-88ab-4d89b3061f6f")
+	(paper "A4")
+	(title_block
+		(company "Kiwi Devices Limited")
+	)
+	(lib_symbols
+		(symbol "Device:LED"
+			(pin_numbers hide)
+			(pin_names
+				(offset 1.016) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "D"
+				(at 0 2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "LED"
+				(at 0 -2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Light emitting diode"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "LED diode"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "LED* LED_SMD:* LED_THT:*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "LED_0_1"
+				(polyline
+					(pts
+						(xy -3.048 -0.762) (xy -4.572 -2.286) (xy -3.81 -2.286) (xy -4.572 -2.286) (xy -4.572 -1.524)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.778 -0.762) (xy -3.302 -2.286) (xy -2.54 -2.286) (xy -3.302 -2.286) (xy -3.302 -1.524)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 0) (xy 1.27 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 -1.27) (xy -1.27 1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 -1.27) (xy 1.27 1.27) (xy -1.27 0) (xy 1.27 -1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "LED_1_1"
+				(pin passive line
+					(at -3.81 0 0)
+					(length 2.54)
+					(name "K"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 3.81 0 180)
+					(length 2.54)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "power:GND"
+			(power)
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "#PWR"
+				(at 0 -6.35 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Value" "GND"
+				(at 0 -3.81 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "power-flag"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "GND_0_1"
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 -1.27) (xy 1.27 -1.27) (xy 0 -2.54) (xy -1.27 -1.27) (xy 0 -1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "GND_1_1"
+				(pin power_in line
+					(at 0 0 270)
+					(length 0) hide
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 165.1 107.95) (xy 165.1 118.11)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "034648e9-b5a8-4787-862f-6095b12d03ce")
+	)
+	(wire
+		(pts
+			(xy 121.92 38.1) (xy 134.62 38.1)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "190b7ce6-863e-48f9-b480-d87a859e5b92")
+	)
+	(wire
+		(pts
+			(xy 104.14 107.95) (xy 104.14 118.11)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "1a04861f-04b7-456e-998c-ac22b4b89fcd")
+	)
+	(wire
+		(pts
+			(xy 104.14 30.48) (xy 104.14 46.99)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "1e36e641-1675-4912-a44c-048728d74d23")
+	)
+	(wire
+		(pts
+			(xy 134.62 54.61) (xy 134.62 64.77)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "24c8357e-6252-40ec-8d65-6d053f72a732")
+	)
+	(wire
+		(pts
+			(xy 134.62 139.7) (xy 152.4 139.7)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "362c01ca-8637-4527-b856-9d880c320e58")
+	)
+	(wire
+		(pts
+			(xy 78.74 30.48) (xy 104.14 30.48)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "39da6d02-4915-442c-add3-fa838c74e93c")
+	)
+	(wire
+		(pts
+			(xy 152.4 38.1) (xy 165.1 38.1)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "3a1027d8-3557-4e89-9ee8-c7f3718e8f30")
+	)
+	(wire
+		(pts
+			(xy 104.14 125.73) (xy 104.14 139.7)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "42dc04f9-d21c-4125-8a81-3d1a85a0e6e6")
+	)
+	(wire
+		(pts
+			(xy 134.62 90.17) (xy 134.62 100.33)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "4a5df593-d4cb-4355-ace0-0f9956af861d")
+	)
+	(wire
+		(pts
+			(xy 134.62 72.39) (xy 134.62 82.55)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "5376698d-2672-4387-9ec4-fa9b41701885")
+	)
+	(wire
+		(pts
+			(xy 165.1 125.73) (xy 165.1 139.7)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "60f28f8c-4d87-435f-a234-90eed02adf0d")
+	)
+	(wire
+		(pts
+			(xy 104.14 54.61) (xy 104.14 64.77)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "67b72588-f67f-4360-9f40-c445618b712a")
+	)
+	(wire
+		(pts
+			(xy 104.14 72.39) (xy 104.14 82.55)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "68d14fdb-784c-493e-85e6-372c244260f1")
+	)
+	(wire
+		(pts
+			(xy 165.1 54.61) (xy 165.1 64.77)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "68da75c0-0bf5-479d-b4c6-457910c48c50")
+	)
+	(wire
+		(pts
+			(xy 152.4 139.7) (xy 152.4 38.1)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "7a086001-ad8f-4dc2-a60f-a739ce2d736d")
+	)
+	(wire
+		(pts
+			(xy 134.62 38.1) (xy 134.62 46.99)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "89bf8ec3-4da7-4e3c-8462-49247a11225d")
+	)
+	(wire
+		(pts
+			(xy 165.1 90.17) (xy 165.1 100.33)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "8f4dba74-b5a3-4adb-a886-2c8dbc2d928f")
+	)
+	(wire
+		(pts
+			(xy 134.62 125.73) (xy 134.62 139.7)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "abc7fa6c-23aa-4faf-8934-35463cc480d2")
+	)
+	(wire
+		(pts
+			(xy 104.14 90.17) (xy 104.14 100.33)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "b30e20d6-c86f-416f-8f9d-11a5e1f65c4f")
+	)
+	(wire
+		(pts
+			(xy 134.62 107.95) (xy 134.62 118.11)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "c85df1b1-1194-4981-867c-31e8f056dce0")
+	)
+	(wire
+		(pts
+			(xy 165.1 72.39) (xy 165.1 82.55)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "cf68b5e7-a3f1-45c5-911a-079eea568293")
+	)
+	(wire
+		(pts
+			(xy 104.14 139.7) (xy 121.92 139.7)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "e90182f2-0b20-4f55-8c72-da4e54808a71")
+	)
+	(wire
+		(pts
+			(xy 165.1 38.1) (xy 165.1 46.99)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "f4b06946-7bb9-43c4-948f-0c35a293a409")
+	)
+	(wire
+		(pts
+			(xy 121.92 139.7) (xy 121.92 38.1)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "fc072700-3909-4cba-a0c5-3ea8fa9ba7f7")
+	)
+	(hierarchical_label "+48VDC"
+		(shape input)
+		(at 78.74 30.48 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "9c942582-7482-44f4-9783-9f3c5a91dc12")
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 165.1 139.7 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "3248e693-80c6-4707-8594-bcd4286cb582")
+		(property "Reference" "#PWR01"
+			(at 165.1 146.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 166.37 144.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 165.1 139.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 165.1 139.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 165.1 139.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "6cd4bc90-0b72-4815-a9e4-b90d8a82be5d")
+		)
+		(instances
+			(project "led-supply"
+				(path "/a5bc576a-16b1-469b-95bf-cd73ad37d133/2c0c1018-598b-4fc8-b9d4-a31fcf4a7761"
+					(reference "#PWR01")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 165.1 104.14 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "3590ec2f-d0af-4d6b-b8a9-50be774e49ea")
+		(property "Reference" "D14"
+			(at 168.91 104.14 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "LED LM301H"
+			(at 168.91 106.68 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "led-supply:SPMWHD32AMH5XAV5SK"
+			(at 165.1 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 165.1 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 165.1 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "d066a298-36c3-4bdd-8de1-bda4815703d3")
+		)
+		(pin "2"
+			(uuid "b09c07b6-c08f-4241-81d7-ad8649a4fe57")
+		)
+		(instances
+			(project "led-supply"
+				(path "/a5bc576a-16b1-469b-95bf-cd73ad37d133/2c0c1018-598b-4fc8-b9d4-a31fcf4a7761"
+					(reference "D14")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 104.14 104.14 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "37732c08-41be-4a38-ad40-750a9bdcae5b")
+		(property "Reference" "D4"
+			(at 107.95 104.14 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "LED LM301H"
+			(at 107.95 106.68 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "led-supply:SPMWHD32AMH5XAV5SK"
+			(at 104.14 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 104.14 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 104.14 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "09e60ed9-09fe-4103-b21c-d42e86b69196")
+		)
+		(pin "2"
+			(uuid "cc35ecc9-2656-4538-89e4-f6d2bc019e50")
+		)
+		(instances
+			(project "led-supply"
+				(path "/a5bc576a-16b1-469b-95bf-cd73ad37d133/2c0c1018-598b-4fc8-b9d4-a31fcf4a7761"
+					(reference "D4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 104.14 68.58 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "60c39c56-7ebd-425a-a24d-be11261458ff")
+		(property "Reference" "D2"
+			(at 107.95 68.58 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "LED LM301H"
+			(at 107.95 71.12 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "led-supply:SPMWHD32AMH5XAV5SK"
+			(at 104.14 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 104.14 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 104.14 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a8092f46-d7bc-4367-894e-73089aae205c")
+		)
+		(pin "2"
+			(uuid "b758ad83-f369-463a-a58e-4ae0e9ebd58e")
+		)
+		(instances
+			(project "led-supply"
+				(path "/a5bc576a-16b1-469b-95bf-cd73ad37d133/2c0c1018-598b-4fc8-b9d4-a31fcf4a7761"
+					(reference "D2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 104.14 121.92 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "64dfab18-ef8e-4480-b99d-fb507733fc7d")
+		(property "Reference" "D5"
+			(at 107.95 121.92 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "LED LM301H"
+			(at 107.95 124.46 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "led-supply:SPMWHD32AMH5XAV5SK"
+			(at 104.14 121.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 104.14 121.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 104.14 121.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "dd7f7be2-b112-464f-a40b-6ecfa4bf364e")
+		)
+		(pin "2"
+			(uuid "6b1e6fb2-1aed-4208-93db-8c0020dd3556")
+		)
+		(instances
+			(project "led-supply"
+				(path "/a5bc576a-16b1-469b-95bf-cd73ad37d133/2c0c1018-598b-4fc8-b9d4-a31fcf4a7761"
+					(reference "D5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 165.1 68.58 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "671bd519-7973-4e0f-ba1a-47979f4f2ba0")
+		(property "Reference" "D12"
+			(at 168.91 68.58 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "LED LM301H"
+			(at 168.91 71.12 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "led-supply:SPMWHD32AMH5XAV5SK"
+			(at 165.1 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 165.1 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 165.1 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "93b64d91-872c-4508-a821-66b5ed600fa1")
+		)
+		(pin "2"
+			(uuid "c9cd85bd-82ab-4fd1-bb68-75edfe8024d9")
+		)
+		(instances
+			(project "led-supply"
+				(path "/a5bc576a-16b1-469b-95bf-cd73ad37d133/2c0c1018-598b-4fc8-b9d4-a31fcf4a7761"
+					(reference "D12")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 134.62 86.36 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "743a2b13-35a5-400d-a591-4e874666f161")
+		(property "Reference" "D8"
+			(at 138.43 86.36 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "LED LM301H"
+			(at 138.43 88.9 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "led-supply:SPMWHD32AMH5XAV5SK"
+			(at 134.62 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 134.62 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 134.62 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "77d9e0c7-882c-4f0b-ad7e-507a28ba0153")
+		)
+		(pin "2"
+			(uuid "7ed11dde-64f7-4ed1-b01f-10e26e29745e")
+		)
+		(instances
+			(project "led-supply"
+				(path "/a5bc576a-16b1-469b-95bf-cd73ad37d133/2c0c1018-598b-4fc8-b9d4-a31fcf4a7761"
+					(reference "D8")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 165.1 121.92 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "7489459a-c948-42da-b0ca-6900bc837438")
+		(property "Reference" "D15"
+			(at 168.91 121.92 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "LED LM301H"
+			(at 168.91 124.46 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "led-supply:SPMWHD32AMH5XAV5SK"
+			(at 165.1 121.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 165.1 121.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 165.1 121.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "64ff3928-c48e-4935-90cc-e86cc4c08922")
+		)
+		(pin "2"
+			(uuid "e5bfa814-a45e-4cbe-b1ca-4e7e8242f790")
+		)
+		(instances
+			(project "led-supply"
+				(path "/a5bc576a-16b1-469b-95bf-cd73ad37d133/2c0c1018-598b-4fc8-b9d4-a31fcf4a7761"
+					(reference "D15")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 104.14 86.36 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "852436b6-1300-4275-bae0-61d9f9922697")
+		(property "Reference" "D3"
+			(at 107.95 86.36 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "LED LM301H"
+			(at 107.95 88.9 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "led-supply:SPMWHD32AMH5XAV5SK"
+			(at 104.14 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 104.14 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 104.14 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a72d360d-96b4-4837-9c3f-cc8a59f9e1b3")
+		)
+		(pin "2"
+			(uuid "84a0b8c6-cc60-4991-83c1-e998ada6e3d9")
+		)
+		(instances
+			(project "led-supply"
+				(path "/a5bc576a-16b1-469b-95bf-cd73ad37d133/2c0c1018-598b-4fc8-b9d4-a31fcf4a7761"
+					(reference "D3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 104.14 50.8 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "89b058fb-1220-451b-a1de-bc5e23a025bb")
+		(property "Reference" "D1"
+			(at 107.95 50.8 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "LED LM301H"
+			(at 107.95 53.34 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "led-supply:SPMWHD32AMH5XAV5SK"
+			(at 104.14 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 104.14 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 104.14 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "fac6538e-9351-4dc4-8ee7-444f275254f7")
+		)
+		(pin "2"
+			(uuid "fdada766-378f-426a-94b5-7d4e795055f6")
+		)
+		(instances
+			(project "led-supply"
+				(path "/a5bc576a-16b1-469b-95bf-cd73ad37d133/2c0c1018-598b-4fc8-b9d4-a31fcf4a7761"
+					(reference "D1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 165.1 50.8 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "98812f4b-08c7-4e1c-9e3d-40caaf666593")
+		(property "Reference" "D11"
+			(at 168.91 50.8 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "LED LM301H"
+			(at 168.91 53.34 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "led-supply:SPMWHD32AMH5XAV5SK"
+			(at 165.1 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 165.1 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 165.1 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "0db62fa2-7734-44d3-a146-6c9d7bbf9ab5")
+		)
+		(pin "2"
+			(uuid "9e0be3c5-8c40-4248-aa57-1e78418ff4fd")
+		)
+		(instances
+			(project "led-supply"
+				(path "/a5bc576a-16b1-469b-95bf-cd73ad37d133/2c0c1018-598b-4fc8-b9d4-a31fcf4a7761"
+					(reference "D11")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 134.62 121.92 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "a0bbba74-3441-4b12-b696-311f508595c6")
+		(property "Reference" "D10"
+			(at 138.43 121.92 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "LED LM301H"
+			(at 138.43 124.46 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "led-supply:SPMWHD32AMH5XAV5SK"
+			(at 134.62 121.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 134.62 121.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 134.62 121.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "f9eac756-617a-4cb9-9d1d-3afefa2cd080")
+		)
+		(pin "2"
+			(uuid "50201c64-4b0e-481f-8c52-3fb264dda7ea")
+		)
+		(instances
+			(project "led-supply"
+				(path "/a5bc576a-16b1-469b-95bf-cd73ad37d133/2c0c1018-598b-4fc8-b9d4-a31fcf4a7761"
+					(reference "D10")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 165.1 86.36 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "a5af4285-7f2d-4220-a0a5-9661cdd9cb98")
+		(property "Reference" "D13"
+			(at 168.91 86.36 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "LED LM301H"
+			(at 168.91 88.9 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "led-supply:SPMWHD32AMH5XAV5SK"
+			(at 165.1 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 165.1 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 165.1 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "2fcbbbb2-a0ff-40fd-95a3-9270fbc0dd7d")
+		)
+		(pin "2"
+			(uuid "ee2ae272-2793-4f4c-9e71-273cfc5a929a")
+		)
+		(instances
+			(project "led-supply"
+				(path "/a5bc576a-16b1-469b-95bf-cd73ad37d133/2c0c1018-598b-4fc8-b9d4-a31fcf4a7761"
+					(reference "D13")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 134.62 104.14 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "ac1e3ae3-5442-4e2c-bdcd-060e9f54e0e3")
+		(property "Reference" "D9"
+			(at 138.43 104.14 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "LED LM301H"
+			(at 138.43 106.68 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "led-supply:SPMWHD32AMH5XAV5SK"
+			(at 134.62 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 134.62 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 134.62 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "9dad0db8-7722-47a4-b6ba-6a62c2d5693e")
+		)
+		(pin "2"
+			(uuid "94d885e5-d2e3-44c5-bee2-171f6448deec")
+		)
+		(instances
+			(project "led-supply"
+				(path "/a5bc576a-16b1-469b-95bf-cd73ad37d133/2c0c1018-598b-4fc8-b9d4-a31fcf4a7761"
+					(reference "D9")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 134.62 68.58 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "db9515a7-7194-4ff9-b278-3a94ea442723")
+		(property "Reference" "D7"
+			(at 138.43 68.58 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "LED LM301H"
+			(at 138.43 71.12 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "led-supply:SPMWHD32AMH5XAV5SK"
+			(at 134.62 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 134.62 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 134.62 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "ae3e0c58-9afc-4cde-9d40-a81fd7490983")
+		)
+		(pin "2"
+			(uuid "b66b3c1d-8e32-4066-9532-85c0db0bef31")
+		)
+		(instances
+			(project "led-supply"
+				(path "/a5bc576a-16b1-469b-95bf-cd73ad37d133/2c0c1018-598b-4fc8-b9d4-a31fcf4a7761"
+					(reference "D7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 134.62 50.8 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "ebbae6a5-96e6-4266-93b7-8e5efb2f2d6e")
+		(property "Reference" "D6"
+			(at 138.43 50.8 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "LED LM301H"
+			(at 138.43 53.34 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "led-supply:SPMWHD32AMH5XAV5SK"
+			(at 134.62 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 134.62 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 134.62 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "62d94a02-a952-4a09-a740-de2ac4c7aaa2")
+		)
+		(pin "2"
+			(uuid "a82da794-a96d-4eb6-8caa-209456d29233")
+		)
+		(instances
+			(project "led-supply"
+				(path "/a5bc576a-16b1-469b-95bf-cd73ad37d133/2c0c1018-598b-4fc8-b9d4-a31fcf4a7761"
+					(reference "D6")
+					(unit 1)
+				)
+			)
+		)
+	)
 )

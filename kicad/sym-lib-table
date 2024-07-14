@@ -1,2 +1,5 @@
 (sym_lib_table
+  (version 7)
+  (lib (name "TPS564208DDCT")(type "KiCad")(uri "${KIPRJMOD}/kicad-symbols/TPS564208DDCT.kicad_sym")(options "")(descr ""))
+  (lib (name "AP63357DV_7")(type "KiCad")(uri "${KIPRJMOD}/kicad-symbols/AP63357DV_7.kicad_sym")(options "")(descr ""))
 )

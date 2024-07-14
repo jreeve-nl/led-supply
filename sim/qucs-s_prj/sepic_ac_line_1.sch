@@ -1,11 +1,11 @@
 <Qucs Schematic 0.0.22>
 <Properties>
-  <View=0,0,1946,861,1,0,0>
+  <View=0,65,1946,917,1,577,120>
   <Grid=10,10,1>
-  <DataSet=sepic_ac_line_sim_1.dat>
-  <DataDisplay=sepic_ac_line_sim_1.dpl>
+  <DataSet=sepic_ac_line_1.dat>
+  <DataDisplay=sepic_ac_line_1.dpl>
   <OpenDisplay=1>
-  <Script=sepic_ac_line_sim_1.m>
+  <Script=sepic_ac_line_1.m>
   <RunScript=0>
   <showFrame=0>
   <FrameText0=Title>

@@ -2,10 +2,10 @@
 <Properties>
   <View=0,0,1558,980,1,0,35>
   <Grid=10,10,0>
-  <DataSet=buck_sim_1.dat>
-  <DataDisplay=buck_sim_1.sch>
+  <DataSet=buck_1.dat>
+  <DataDisplay=buck_1.sch>
   <OpenDisplay=1>
-  <Script=buck_sim_1.m>
+  <Script=buck_1.m>
   <RunScript=0>
   <showFrame=0>
   <FrameText0=Title>

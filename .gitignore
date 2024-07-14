@@ -14,6 +14,11 @@ _autosave-*
 *-save.kicad_pcb
 fp-info-cache
 
+# Netlist and data files for ngspice/qucs-s
+
+*.cir
+*.ngspice
+
 # Netlist files (exported from Eeschema)
 *.net
 

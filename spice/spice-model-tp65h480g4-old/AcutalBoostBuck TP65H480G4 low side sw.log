@@ -1,0 +1,27 @@
+Stray ".ends" card: .ends tp65h480g4
+Circuit: * Z:\home\jsr\dev\led-supply\spice\spice-model-tp65h480g4\AcutalBoostBuck TP65H480G4 low side sw.asc
+
+Warning: Multiple definitions of model "aons66402" Type: Vdmos1
+WARNING: Node 158 is floating.
+WARNING: Node 302 is floating.
+
+Per .tran options, skipping operating point for transient analysis.
+
+Date: Sat Aug 28 14:12:41 2021
+Total elapsed time: 0.689 seconds.
+
+tnom = 27
+temp = 27
+method = modified trap
+totiter = 25217
+traniter = 25217
+tranpoints = 10777
+accept = 7759
+rejected = 3018
+matrix size = 138
+fillins = 143
+solver = Normal
+Thread vector: 10.0/8.1[4] 6.3/4.7[4] 1.0/1.5[1] 0.7/1.8[1]  2592/500
+Matrix Compiler1: 18.03 KB object code size  6.2/2.4/[1.4]
+Matrix Compiler2: 14.34 KB object code size  1.4/1.8/[0.9]
+

@@ -1,0 +1,203 @@
+.subckt  TP65H480G4 301 302 303
+* GROUP A: 301=D1, 302=G1, 303=S1
+*
+* NODE 000 - 099: RESERVED FOR CAP EMULATION
+* NODE 100 - 199: HEMT_A AND NMOS_A
+* NODE 300 - 399: PIN AND CONNECTION
+*
+* Part A: 101=drain A, 152=gate A, 199=source A  
+* HEMT_A: 101=drainHA, 102=gateHA, 103=sourceHA
+* NMOS_A: 151=drainMA, 152=gateMA, 153=sourceMA
+*
+*   ver 1.0, August 8, 2020, @ Transphorm
+*************************************************************************
+*The model is an approximation of the device.
+*The model may not show the true device performance under all conditions.
+*The model only guarantees the accuracy of the key parameters (Ron, Ciss, 
+*Coss, Crss, Eoss, Qoss, and Qrr) in the current data sheet.
+*
+*Please refer to the current datasheet for the most up to date specifications
+*of the device.
+*
+*Transphorm Inc. does not assume any liability arising from this use.
+*Transphorm Inc. reserves the right to change models without prior notice.
+*************************************************************************
+ 
+************************
+***   Part A Begin   ***
+************************
+* 101=drain A, 152=gate A, 199=source A
+ 
+**************************
+**  Connection A Begin  **
+ 
+Li1A 103 151 0.20nH
+Li2A 102 198 0.01nH 
+Ri2A 198 199 0.10   
+Li3A 153 197 0.20nH 
+Ri3A 197 199 0.01  
+ 
+**  Connection A End  **
+************************
+ 
+ 
+******************* 
+**  HEMT_A Begin **
+* xxxx
+* 101=drainHA, 102=gateHA, 103=sourceHA
+ 
+ 
+** HEMT_A Body  **
+ 
+J1A 104 102 103 MJ1A 0.407
+.model MJ1A NJF vto -22 beta 0.2 lambda 0.005 rs 0.01
++ cgs 30PF cgd 50PF is=1f m=0.3
+ 
+J2A 105 102 104 MJ2A 0.407
+.model MJ2A NJF vto -75 beta 0.2 lambda 0.005 
++ cgs 20PF cgd 70PF is=1f m=0.35
+ 
+J3A 101 102 105 MJ3A 0.407
+.model MJ3A NJF vto -210 beta 0.2 lambda 0.005 rd 0.01 
++ cgs 10PF cgd 200PF is=1f m=0.4
+ 
+ 
+**  HEMT_A Leakage Compensation  **
+ 
+DL1A 106 101 MDLA 0.407
+DL2A 106 103 MDLA 0.407
+.model MDLA D is=0.05uA cjo=0
+ 
+ 
+**  HEMT_A Cap Compensation  **
+ 
+CJA 101 103 0.1pF
+ 
+ 
+**  HEMT_A End  **
+******************
+ 
+ 
+********************
+**  NMOS_A Begin  **
+* xxxx
+* 151=drainMA, 152=gateMA, 153=sourceMA
+ 
+MA 159 157 158 158 MMA L=100u W=100u
+.MODEL MMA NMOS LEVEL=1 IS=1e-32
++VTO=2.3 LAMBDA=0 KP=14
++CGSO=6.9e-06 CGDO=1e-11
+ 
+
+DM1A 153 151 MDMA
+.MODEL MDMA D IS=2.4e-12 RS=0.0035 N=1.07 BV=30
++IBV=0.00025 EG=1 XTI=1 TT=3e-09
++CJO=2.9e-10 VJ=1.47 M=0.52 FC=0.5
+ 
+RMA  153 151 1e+07
+RMDA 159 151 0.0001
+RMGA 152 157 6
+RMSA 158 153 0.0011
+ 
+
+RMLA 155 160 1
+FM2A 157 159 VM2A -1
+VM2A 154 0 0
+EMA  160 0 159 157 1
+CMA  161 160 3.94e-10
+FM1A 157 159 VM1A -1
+VM1A 161 156 0
+RMCA 156 160 1
+ 
+DM2A 154 155 MDM1A
+.MODEL MDM1A D IS=1e-32 N=50
++CJO=1.25e-10 VJ=4.3 M=0.3 FC=1e-08
+ 
+DM3A 0 155 MDM2A
+.MODEL MDM2A D IS=1e-10 N=0.41 RS=3e-06
+ 
+DM4A 0 156 MDM3A
+.MODEL MDM3A D IS=1e-10 N=0.41
+ 
+**  NMOS_A End  **
+******************
+ 
+**  PartA Cap Compensation  **
+ 
+CGDA 321 101 3pF
+ 
+*********************
+***   PartA End   ***
+*********************
+*********************
+ 
+ 
+ 
+********************************
+********************************
+***   Pin Connection Begin   ***
+********************************
+ 
+ 
+********************
+**  301=D1 Begin  **
+* from 101=drainA to 301=D1
+  
+L315 301 311 1.68n
+R315 301 311 40 
+R311 311 101 54m 
+L311 311 312 0.0129n
+R312 312 101 27m 
+L312 312 313 0.04322n 
+R313 313 101 13.5m 
+L314 313 314 0.1448n
+R314 314 101 6.75m
+ 
+**  301=D1 End  **
+******************
+ 
+ 
+********************
+**  302=G1 Begin  **
+* from 152=GateA to 302=G1
+ 
+L325 302 321 2.86n
+R325 302 321 40 
+R321 321 152 1145m 
+L321 321 322 0.053n
+R322 322 152 408.93m 
+L322 322 323 0.06784n 
+R323 323 152 146m 
+L324 323 324 0.08684n
+R324 324 152 52.16m
+ 
+**  302=G1 End  **
+******************
+ 
+ 
+********************
+**  303=S1 Begin  **
+* from 199=sourceA to 303=S1
+ 
+L335 303 331 0.65n
+R335 303 331 2 
+R331 331 199 40.5m 
+L331 331 332 0.0097n
+R332 332 199 20.25m 
+L332 332 333 0.0398n 
+R333 333 199 10.125m 
+L334 333 334 0.163n
+R334 334 199 5.0625m
+ 
+**  303=S1 End  **
+******************
+ 
+ 
+ 
+******************************
+***   Pin Connection End   ***
+******************************
+******************************
+ 
+ 
+.ends  TP65H480G4

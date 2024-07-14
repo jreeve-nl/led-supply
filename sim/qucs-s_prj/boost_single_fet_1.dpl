@@ -1,0 +1,29 @@
+<Qucs Schematic 24.2.1>
+<Properties>
+  <View=0,0,1501,883,1,0,0>
+  <Grid=10,10,0>
+  <DataSet=boost_single_fet_1.dat>
+  <DataDisplay=boost_single_fet_1.sch>
+  <OpenDisplay=0>
+  <Script=boost_single_fet_1.m>
+  <RunScript=0>
+  <showFrame=0>
+  <FrameText0=Title>
+  <FrameText1=Drawn By:>
+  <FrameText2=Date:>
+  <FrameText3=Revision:>
+</Properties>
+<Symbol>
+</Symbol>
+<Components>
+</Components>
+<Wires>
+</Wires>
+<Diagrams>
+  <Rect 200 444 827 354 3 #c0c0c0 1 00 1 0 0.2 1 1 -0.1 0.5 1.1 1 -0.1 0.5 1.1 315 0 225 1 0 0 "" "" "">
+	<"ngspice/tran.v(pr5)" #0000ff 0 3 0 0 0>
+	<"ngspice/tran.v(v_o)" #ff0000 0 3 0 0 0>
+  </Rect>
+</Diagrams>
+<Paintings>
+</Paintings>

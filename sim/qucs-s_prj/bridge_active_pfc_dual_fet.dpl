@@ -1,0 +1,42 @@
+<Qucs Schematic 24.2.1>
+<Properties>
+  <View=-535,10,1699,1324,0.671994,0,0>
+  <Grid=10,10,0>
+  <DataSet=bridge_active_pfc_dual_fet.dat>
+  <DataDisplay=bridge_active_pfc_dual_fet.sch>
+  <OpenDisplay=1>
+  <Script=bridge_active_pfc_dual_fet.m>
+  <RunScript=0>
+  <showFrame=0>
+  <FrameText0=Title>
+  <FrameText1=Drawn By:>
+  <FrameText2=Date:>
+  <FrameText3=Revision:>
+</Properties>
+<Symbol>
+</Symbol>
+<Components>
+</Components>
+<Wires>
+</Wires>
+<Diagrams>
+  <Rect 130 669 902 229 3 #c0c0c0 1 00 1 0 0.2 1 1 -0.1 0.5 1.1 1 -0.1 0.5 1.1 315 0 225 1 0 0 "" "" "">
+	<"ngspice/tran.v(pr7)" #0000ff 0 3 0 0 0>
+	<"ngspice/tran.i(pr8)" #ff0000 0 3 0 0 1>
+  </Rect>
+  <Rect 130 1010 904 260 3 #c0c0c0 1 00 0 0.0025 0.0001 0.0026 0 -200 50 200 0 41.75 0.25 42.25 315 0 225 1 0 0 "" "" "">
+	<"ngspice/tran.v(pr7)" #0000ff 0 3 0 0 0>
+	<"ngspice/tran.i(pr8)" #ff0000 0 3 0 0 1>
+  </Rect>
+  <Rect 130 331 905 281 3 #c0c0c0 1 00 1 0 0.001 0.02 1 -469.442 200 600.631 1 -50.7799 20 51.0062 315 0 225 1 0 0 "" "" "">
+	<"ngspice/tran.v(v_o)" #0000ff 0 3 0 0 0>
+	<"ngspice/tran.v(pr5)" #ff0000 0 3 0 0 0>
+	<"ngspice/tran.i(pr4)" #ff00ff 0 3 0 0 1>
+	<"ngspice/tran.v(v_r)" #00ff00 0 3 0 0 0>
+  </Rect>
+  <Rect 128 1283 899 219 3 #c0c0c0 1 00 1 0 0.2 1 1 -0.1 0.5 1.1 1 -0.1 0.5 1.1 315 0 225 1 0 0 "" "" "">
+	<"ngspice/tran.i(pr3)" #0000ff 0 3 0 0 0>
+  </Rect>
+</Diagrams>
+<Paintings>
+</Paintings>

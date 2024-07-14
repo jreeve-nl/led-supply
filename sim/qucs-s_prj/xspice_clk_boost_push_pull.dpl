@@ -1,0 +1,32 @@
+<Qucs Schematic 0.0.22>
+<Properties>
+  <View=0,0,1153,800,1,0,0>
+  <Grid=10,10,0>
+  <DataSet=xspice_clk_boost_push_pull.dat>
+  <DataDisplay=xspice_clk_boost_push_pull.sch>
+  <OpenDisplay=1>
+  <Script=xspice_clk_boost_push_pull.m>
+  <RunScript=0>
+  <showFrame=0>
+  <FrameText0=Title>
+  <FrameText1=Drawn By:>
+  <FrameText2=Date:>
+  <FrameText3=Revision:>
+</Properties>
+<Symbol>
+</Symbol>
+<Components>
+</Components>
+<Wires>
+</Wires>
+<Diagrams>
+  <Rect 120 301 931 251 3 #c0c0c0 1 00 1 0 0.2 1 1 -0.1 0.5 1.1 1 -0.1 0.5 1.1 315 0 225 "" "" "">
+	<"ngspice/tran.v(v_o)" #0000ff 0 3 0 0 0>
+  </Rect>
+  <Rect 130 620 929 240 3 #c0c0c0 1 00 0 0.00499 1e-05 0.005 1 -134.996 100 364.612 0 0.25 0.1 0.5 315 0 225 "" "" "">
+	<"ngspice/tran.v(pr5)" #0000ff 0 3 0 0 0>
+	<"ngspice/tran.i(pr6)" #ff0000 0 3 0 0 1>
+  </Rect>
+</Diagrams>
+<Paintings>
+</Paintings>

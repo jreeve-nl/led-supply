@@ -1,11 +1,11 @@
 <Qucs Schematic 0.0.22>
 <Properties>
-  <View=0,0,1861,918,1,0,0>
+  <View=0,0,1965,918,1,0,0>
   <Grid=10,10,0>
-  <DataSet=bridge_sim_1.dat>
-  <DataDisplay=bridge_sim_1.sch>
+  <DataSet=bridge_1.dat>
+  <DataDisplay=bridge_1.sch>
   <OpenDisplay=1>
-  <Script=bridge_sim_1.m>
+  <Script=bridge_1.m>
   <RunScript=0>
   <showFrame=0>
   <FrameText0=Title>
@@ -30,13 +30,14 @@
 	<"ngspice/tran.p_l_t" #0000ff 0 3 0 0 0>
 	<"ngspice/tran.p_i_t" #005500 0 3 0 0 1>
   </Rect>
-  <Tab 1070 227 735 167 3 #c0c0c0 1 00 1 0 1 1 1 0 1 1 1 0 1 40009 315 0 225 "" "" "">
+  <Tab 1070 215 855 155 3 #c0c0c0 1 00 1 0 1 1 1 0 1 1 1 0 1 40002 315 0 225 "" "" "">
 	<"ngspice/tran.v_i_rms" #0000ff 0 3 1 0 0>
 	<"ngspice/tran.i_i_rms" #0000ff 0 3 0 0 0>
 	<"ngspice/tran.v_o_rms" #0000ff 0 3 0 0 0>
 	<"ngspice/tran.i_o_rms" #0000ff 0 3 0 0 0>
+	<"ngspice/tran.pf" #0000ff 0 3 1 0 0>
   </Tab>
-  <Tab 1060 560 300 200 3 #c0c0c0 1 00 1 0 1 1 1 0 1 1 1 0 1 40009 315 0 225 "" "" "">
+  <Tab 1060 560 300 200 3 #c0c0c0 1 00 1 0 1 1 1 0 1 1 1 0 1 40002 315 0 225 "" "" "">
 	<"ngspice/tran.v_o_ripple" #0000ff 0 3 1 0 0>
   </Tab>
 </Diagrams>

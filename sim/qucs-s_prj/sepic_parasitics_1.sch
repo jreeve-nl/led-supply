@@ -1,11 +1,11 @@
 <Qucs Schematic 0.0.22>
 <Properties>
-  <View=0,-60,2173,1005,1,0,120>
+  <View=0,105,2173,1257,1,0,420>
   <Grid=10,10,1>
-  <DataSet=sepic_sim_parasitics_1.dat>
-  <DataDisplay=sepic_sim_parasitics_1.dpl>
+  <DataSet=sepic_parasitics_1.dat>
+  <DataDisplay=sepic_parasitics_1.dpl>
   <OpenDisplay=1>
-  <Script=sepic_sim_parasitics_1.m>
+  <Script=sepic_parasitics_1.m>
   <RunScript=0>
   <showFrame=0>
   <FrameText0=Title>

@@ -2,10 +2,10 @@
 <Properties>
   <View=0,0,1432,977,1,0,0>
   <Grid=10,10,0>
-  <DataSet=sepic_sim_1.dat>
-  <DataDisplay=sepic_sim_1.sch>
+  <DataSet=sepic_1.dat>
+  <DataDisplay=sepic_1.sch>
   <OpenDisplay=1>
-  <Script=sepic_sim_1.m>
+  <Script=sepic_1.m>
   <RunScript=0>
   <showFrame=0>
   <FrameText0=Title>

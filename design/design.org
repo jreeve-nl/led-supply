@@ -1,4 +1,4 @@
-#+TITLE:     230V AC - 48V DC CC, CV Isolated Buck Converter Design (LED Driver)
+#+TITLE:     230V AC - ~48V DC CC Isolated Buck Converter Design (LED Driver)
 #+AUTHOR:    Jeremy Reeve
 #+EMAIL:     jreeve.nl@gmail.com
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
@@ -33,11 +33,14 @@
 #+LATEX_HEADER_EXTRA: \usepackage{amsmath, amssymb}
 #+LATEX_HEADER_EXTRA: \usepackage{bm}
 #+LATEX_HEADER_EXTRA: \usepackage{gensymb}
+#+LATEX_HEADER_EXTRA: \usepackage{tikz}
+#+LATEX_HEADER_EXTRA: \usepackage{circuitikz}
 #+LATEX_HEADER_EXTRA: \DeclareRobustCommand{\bbone}{\text{\usefont{U}{bbold}{m}{n}1}}
 #+LATEX_HEADER_EXTRA: \DeclareMathOperator{\EX}{\mathrm{E}}% expected value
 #+LATEX_HEADER_EXTRA: \DeclareMathOperator{\Var}{\mathrm{Var}}% variance value
 #+LATEX_HEADER_EXTRA: \DeclareMathOperator{\Cov}{\mathrm{Cov}}% covariance value
 #+LATEX_HEADER_EXTRA: \newcommand{\distas}{\sim}%
+#+LATEX_HEADER_EXTRA: \tikzset{EFvoltages}
 #+DESCRIPTION:
 #+KEYWORDS:
 #+SUBTITLE:
@@ -50,7 +53,7 @@
 ---
 layout: page
 category : design
-tagline: "230V AC - 48V DC CC, CV Isolated Buck Converter Design (LED Driver)"
+tagline: "230V AC - ~48V DC CC Isolated Buck Converter Design (LED Driver)"
 tags : [microgreens, led, powerelectronics]
 ---
 {% include JB/setup %}
@@ -62,7 +65,7 @@ tags : [microgreens, led, powerelectronics]
 """
 led_supply_design.py: 
 
-	Copyright (c) 2020 Jeremy Reeve <jreeve.nl@gmail.com>
+	Copyright (c) 2020,2021 Jeremy Reeve <jreeve.nl@gmail.com>
 
 
 """
@@ -100,7 +103,7 @@ led_supply_design.py:
 #+NAME: led-supply-design-authorship
 #+BEGIN_SRC python :exports none
   __author__ = "Jeremy Reeve"
-  __copyright__ = "Copyright 2020, Jeremy Reeve"
+  __copyright__ = "Copyright (C) 2020, 2021 Jeremy Reeve"
   __credits__ = ["Jeremy Reeve"]
   __license__ = "Murky"
   __version__ = "1.0.1"
@@ -214,50 +217,66 @@ led_supply_design.py:
       def __init__(self, ledFixtureParams):
           self.ledFixtureParams = ledFixtureParams
 
-
+      @property
       def V_O_min(self):
-
+          """ Minimum output voltage determined from series string of
+          LED forward voltage drops.
+          """
           return self.ledFixtureParams.N_s * self.ledFixtureParams.V_F
 
-
+      @property
       def V_O_nominal(self):
+          """ Minimum output voltage determined from series string of
+          LED forward voltage drops plus some amount to account for
+          losses.
+          """
+          return self.V_O_min + 0.25    # arbitrary!
 
-          return self.V_O_min() + 0.25    # arbitrary!
-
-    
+      @property
       def v_O_ripple_pk(self):
+          """ Allowable output ripple voltage.
+          """
+          return self.V_O_nominal * CONST_GAMMA
 
-          return self.V_O_nominal() * CONST_GAMMA
-    
-
+      @property
       def I_O_nominal(self):
-
+          """ Output current when LEDs are run at a level thought to be used
+          in practice.
+          """
           return self.ledFixtureParams.N_p * self.ledFixtureParams.I_nominal
 
-
+      @property
       def I_O_test(self):
-
+          """ Output current when LEDs are run at a test level used when
+          referencing other datasheet parameters.
+          """
           return self.ledFixtureParams.N_p * self.ledFixtureParams.I_test
 
-
+      @property
       def I_O_max(self):
-
+          """ Output current when LEDs are run at their absolute maximum level.
+          """
           return self.ledFixtureParams.N_p * self.ledFixtureParams.I_max
 
-
-      def P_O_test(self):
-
-          return self.I_O_test() * self.V_O_min() / 1e3
-
-
+      @property
       def P_O_nominal(self):
+          """ Output power when LEDs are run at a level thought to be used
+          in practice.
+          """
+          return self.I_O_nominal * self.V_O_min / 1e3
 
-          return self.I_O_nominal() * self.V_O_min() / 1e3
+      @property
+      def P_O_test(self):
+          """ Output power when LEDs are run at a test level used when
+          referencing other datasheet parameters.
+          """
+          return self.I_O_test * self.V_O_min / 1e3
 
-
+      @property
       def P_O_max(self):
-
-          return self.I_O_max() * self.V_O_max / 1e3
+          """ Output power when LEDs are run at their absolute maximum level.
+          """
+          return self.I_O_max * self.V_O_max / 1e3
 
 
   def compute_supply_outputs():
@@ -265,18 +284,18 @@ led_supply_design.py:
       supplyOutputs = SupplyOutputs(LEDFixtureParams())
 
       print("V_O_min = {0} V  V_O_nominal = {1} V  V_O_max = {2} V  v_O_ripple_pk = {3} V"
-            .format(supplyOutputs.V_O_min(), supplyOutputs.V_O_nominal(), supplyOutputs.V_O_max,
-                    supplyOutputs.v_O_ripple_pk()))
+            .format(supplyOutputs.V_O_min, supplyOutputs.V_O_nominal, supplyOutputs.V_O_max,
+                    supplyOutputs.v_O_ripple_pk))
 
       print("I_O_test = {0} mA  I_O_nominal = {1} mA  I_O_max = {2} mA"
-            .format(supplyOutputs.I_O_test(), supplyOutputs.I_O_nominal(), supplyOutputs.I_O_max()))
+            .format(supplyOutputs.I_O_test, supplyOutputs.I_O_nominal, supplyOutputs.I_O_max))
 
       print("P_O_test = {0} W  P_O_nominal = {1} W  P_O_max = {2} W  "
-            .format(supplyOutputs.P_O_test(), supplyOutputs.P_O_nominal(), supplyOutputs.P_O_max()))            
+            .format(supplyOutputs.P_O_test, supplyOutputs.P_O_nominal, supplyOutputs.P_O_max))
 
-      return [supplyOutputs.V_O_min(), supplyOutputs.V_O_nominal(), supplyOutputs.V_O_max,
-              supplyOutputs.I_O_test(), supplyOutputs.I_O_nominal(), supplyOutputs.I_O_max(),
-              supplyOutputs.P_O_test(), supplyOutputs.P_O_nominal(), supplyOutputs.P_O_max()]
+      return [supplyOutputs.V_O_min, supplyOutputs.V_O_nominal, supplyOutputs.V_O_max,
+              supplyOutputs.I_O_test, supplyOutputs.I_O_nominal, supplyOutputs.I_O_max,
+              supplyOutputs.P_O_test, supplyOutputs.P_O_nominal, supplyOutputs.P_O_max]
 
 #+END_SRC
 
@@ -310,67 +329,76 @@ Since we now know what the power supply must deliver, we may calculate approxima
 
 #+NAME: led-supply-design-compute-supply-inputs
 #+BEGIN_SRC python :results output scalar raw replace
-
+  
   class SupplyInputs():
-
-      V_line_min     = 100      #  (V rms) Minimum line input voltage
+  
+      V_line_min     = 85       #  (V rms) Minimum line input voltage
       V_line_nominal = 230      #  (V rms) Nominal line input voltage
-      V_line_max     = 250      #  (V rms) Maximum line input voltage
-
-
+      V_line_max     = 265      #  (V rms) Maximum line input voltage
+  
+  
       def __init__(self, supplyOutputs):
           self.supplyOutputs = supplyOutputs
-
-
+  
+      @property
       def P_I_test(self):
-
-          return self.supplyOutputs.P_O_test() / CONST_ETA
-
-
+          """ Total required input power to run LEDs at the test current 
+          referenced in the datasheet.  Accounts for estimated efficiency.
+          """
+          return self.supplyOutputs.P_O_test / CONST_ETA
+  
+      @property
       def P_I_nominal(self):
-
-          return self.supplyOutputs.P_O_nominal() / CONST_ETA 
-
-
+          """ Total required input power to run LEDs at the upper bound of level 
+          expected during normal operation.  Accounts for estimated efficiency.
+          """
+          return self.supplyOutputs.P_O_nominal / CONST_ETA 
+  
+      @property
       def P_I_max(self):
-
-          return self.supplyOutputs.P_O_max() / CONST_ETA
-
-
-      def I_I_min(self):
-
-          return self.supplyOutputs.P_O_test() / (self.V_line_max * np.sqrt(2))
-
-
+          """ Total required input power to run LEDs at their absolute maximum 
+          rating.  Accounts for estimated efficiency.
+          """
+          return self.supplyOutputs.P_O_max / CONST_ETA
+  
+      @property
+      def I_I_test(self):
+          """ Test current RMS
+          """
+          return self.supplyOutputs.P_O_test / self.V_line_max
+  
+      @property
       def I_I_nominal(self):
-
-          return self.supplyOutputs.P_O_nominal() / (self.V_line_nominal * np.sqrt(2))
-
-
+          """ Nominal current RMS
+          """
+          return self.supplyOutputs.P_O_nominal / self.V_line_nominal
+  
+      @property
       def I_I_max(self):
-
-          return self.supplyOutputs.P_O_max() / (self.V_line_min * np.sqrt(2))
-
-
-
+          """ Maximum current RMS
+          """
+          return self.supplyOutputs.P_O_max / self.V_line_min
+  
+  
+  
   def compute_supply_inputs():
-
+  
       supplyInputs = SupplyInputs(SupplyOutputs(LEDFixtureParams()))
-
+  
       print("P_I_test = {0} W  P_I_nominal = {1} W  P_I_max = {2} W"
-            .format(supplyInputs.P_I_test(), supplyInputs.P_I_nominal(), supplyInputs.P_I_max()))
+            .format(supplyInputs.P_I_test, supplyInputs.P_I_nominal, supplyInputs.P_I_max))
       print("I_I_min = {0} A rms  I_I_nominal = {1} A rms  I_I_max = {2} A rms"
-            .format(supplyInputs.I_I_min(), supplyInputs.I_I_nominal(), supplyInputs.I_I_max()))
-
+            .format(supplyInputs.I_I_min, supplyInputs.I_I_nominal, supplyInputs.I_I_max))
+  
       # Assuming PF=1 !
       print("I_I_min_peak = {0} A  I_I_nominal_peak = {1} A  I_I_max_peak = {2} A"
-            .format(supplyInputs.I_I_min() * np.sqrt(2),
-                    supplyInputs.I_I_nominal() * np.sqrt(2),
-                    supplyInputs.I_I_max() * np.sqrt(2)))
-
-
+            .format(supplyInputs.I_I_min * np.sqrt(2),
+                    supplyInputs.I_I_nominal * np.sqrt(2),
+                    supplyInputs.I_I_max * np.sqrt(2)))
+  
+  
       return supplyInputs
-
+  
 #+END_SRC
 
 
@@ -498,7 +526,7 @@ C |v_{\text{ripple}}| &= It                          \\
 
 #+CAPTION: Simulation schematic of full bridge rectifier with resistive load and reservoir capacitor
 #+LABEL:   fig:sim_sch_diode_bridge
-[[./sim/images/diode_bridge_1_sch.png]]
+[[../sim/images/diode_bridge_1_sch.png]]
 
 
 
@@ -507,7 +535,7 @@ C |v_{\text{ripple}}| &= It                          \\
 
 #+CAPTION: Results for quasi-static situation (neglecting startup)
 #+LABEL:   fig:sim_dpl_diode_bridge
-[[./sim/images/diode_bridge_1.png]]
+[[../sim/images/diode_bridge_1.png]]
 
 Operation is as expected.  This result demonstrates one problem associated with this technique and that is the highly distorted input current waveform with respect to the line input voltage.  Clearly there is much harmonic content other than at the fundamental.  At this power level and making use of passive filtering between the line and diode bridge results could be acceptable (in compliance) but surely we can do better and we have motivation to do so as the intended application must support many of these converters attached to a line and we wish to be good electrical appliance citizens!
 
@@ -515,7 +543,7 @@ Operation is as expected.  This result demonstrates one problem associated with 
 
 #+CAPTION: Results for startup transient behaviour
 #+LABEL:   fig:sim_dpl_diode_bridge_startup
-[[./sim/images/diode_bridge_startup.png]]
+[[../sim/images/diode_bridge_startup.png]]
 
 
 
@@ -638,12 +666,12 @@ Delta_v_C = 0.41500000000000004 V  C_min = 1.871313348073434 uF
 
 #+CAPTION: Buck converter schematic
 #+LABEL:   fig:sim_sch_buck_converter
-[[./sim/images/buck_sim_1_sch.png]]
+[[../sim/images/buck_sim_1_sch.png]]
 
 
 #+CAPTION: Buck converter simulation results
 #+LABEL:   fig:sim_dpl_buck_converter
-[[./sim/images/buck_sim_1_dpl.png]]
+[[../sim/images/buck_sim_1_dpl.png]]
 
 
 Combining the diode bridge rectifier and this buck converter and applying a suitable control scheme, we have a solutions that meets the specification.
@@ -834,86 +862,318 @@ Delta_v_C_2 = 0.41500000000000004 V  C_2_min = 6.576392794518592 uF
 
 #+CAPTION: SEPIC converter schematic
 #+LABEL:   fig:sim_sch_sepic_converter
-[[./sim/images/sepic_sim_1_sch.png]]
+[[../sim/images/sepic_sim_1_sch.png]]
 
 
 #+CAPTION: SEPIC converter simulation results
 #+LABEL:   fig:sim_dpl_sepic_converter
-[[./sim/images/sepic_sim_1_dpl.png]]
+[[../sim/images/sepic_sim_1_dpl.png]]
 
 
 
 *  Transformer isolation
 
 
+* Pulse-Width Modulated Rectifier
+
+One method of improving the distortion factor of the peak detector type rectifier circuit and hence the Power Factor is to emulate a Loss Free Resistor by having a Boost Converter vary its duty cycle with a switching frequency far above the line frequency in order for the average current drawn from the line to track the instantaneous line voltage.
 
 
-* Boost Converter in CCM
+** Realisation of a Near-Ideal Rectifier
 
-One method of improving the distortion factor of the peak detector type rectifier circuit and hence the Power Factor is to emulate a Loss Free Resistor by having a Boost Converter vary its duty cycle with a switching frequency far above the line frequency in order to produce a relatively constant DC ouput...
+Post rectification the voltage is given by $v_g(t) = V_M \lvert \sin \left ( \omega t \right ) \rvert$
 
+We require a constant output voltage so we must have a converter ratio
+
+\begin{equation*}
+M(d(t)) = \frac{v(t)}{v_g(t)} = \frac{V}{V_M \lvert \sin \left ( \omega t \right ) \rvert}
+\end{equation*}
+
+We need the conversion ratio to vary between
+
+\begin{equation}
+M_\text{min} = \frac{V}{V_M}
+\end{equation}
+
+and $\infty$
+
+Assuming ideality, there is no power loss and hence
+
+\begin{equation*}
+i(t) = \frac{v_g(t)i_g(t)}{V} = \frac{v_g^2(t)}{R_e}
+\end{equation*}
+
+Substituting our expression for $v_g(t)$ yields
+
+\begin{equation*}
+i(t) = \frac{V_M^2 \lvert \sin \left ( \omega t \right ) \rvert^2}{V R_e} = \frac{V_M^2}{2 V R_e} \left ( 1 - \cos \left ( 2 \omega t \right ) \right )
+\end{equation*}
+
+which we interpret as a DC component plus some 2nd order harmonic of the input line frequency.
+
+
+
+
+
+* PWM Boost Converter in CCM for PFC
+
+
+Time dependent conversion ratio for a boost converter is
+
+\begin{align*}
+M(d(t)) = \frac{1}{1 - d\left (t \right)}
+\end{align*}
+
+and from above, equating the desired conversion ratio with that of the boost converter conversion ratio we have
+
+\begin{align*}
+d(t) = 1 - \frac{v_g(t)}{V}
+\end{align*}
+
+
+
+** Initial design values
 
 #+NAME: led-supply-design-compute-boost-pfc-params
 #+BEGIN_SRC python :results output scalar raw replace
-
+  
   class BoostPFCParams():
-
-      V_line_min     = 100      #  (V rms) Minimum line input voltage
-      V_line_nominal = 230      #  (V rms) Nominal line input voltage
-      V_line_max     = 250      #  (V rms) Maximum line input voltage
-
-
-      def __init__(self):
-
-
+  
+      f_3dB_I_sense  =   1e3    #  (Hz)  Break frequency for I sense LPF
+      R_fb_I_sense   = 470e3    #  (Ohm) I sense feedback R value for LPF
+  
+      V_F            =   0.7    #  (V)   Diode forward voltage drop
+  
+      R_I_sense      = 100e-3   # (Ohm)  current shunt
+  
+      def __init__(self, supplyInputs : SupplyInputs):
+  
+          self._supplyInputs = supplyInputs
+  
+          return
+  
+      @property
+      def R_e_nom(self) -> float:
+  
+          return self._supplyInputs.V_line_nominal \
+              / self._supplyInputs.I_I_nominal
+  
+      @property
+      def R_e_min(self) -> float:
+  
+          return self._supplyInputs.V_line_min \
+              / self._supplyInputs.I_I_max
+  
       def L(self):
-
-          return 
-
-
-
+          return None
+  
+  
+  class CurrentSenseResistor():
+  
+      def __init__(self, R_sense : float, I_max_pk : float):
+          """
+          :param R_sense: Value of current sense resistor in Ohms.
+          :param I_max_pk: Maximum peak current in Amperes
+          """
+          self._R_sense = R_sense
+          self._I_max_pk = I_max_pk
+  
+      @property
+      def R_sense(self) -> float:
+          """ 
+          """
+          return self._R_sense
+  
+      @property
+      def P_max(self) -> float:
+          """ Assuming our PFC is working, rectified sinusoidal current.
+          """
+          return self._I_max_pk ** 2 / 2 * self._R_sense
+  
+      @property
+      def V_max_pk(self) -> float:
+          """ 
+          """
+          return self._I_max_pk * self._R_sense
+  
+      @property
+      def I_max_pk(self) -> float:
+          """
+          """
+          return self._I_max_pk
+  
+  
+  class CurrentSenseAmplifierParams():
+  
+      V_cc    = 12.0        # (V)  +ve power rail
+      V_O_max = V_cc - 0.5  # (V)  maximum positive output swing
+      R_1     = 270         # (Ohm) one leg of the fb network
+  
+      def __init__(self,
+                   currentSenseResistor : CurrentSenseResistor,
+                   f_3dB : float):
+          """
+          This is a non-inverting op-amp integrator.
+          :param V_in_max_pk: Maximum expected V developed across R_sense.
+          :param f_3dB: 3dB or break frequency of 1-pole filter.
+          :param R_fb: Value of feedback resistor.
+          """
+          self._currentSenseResistor = currentSenseResistor
+          self._V_in_max_pk = self._currentSenseResistor.V_max_pk
+          self._f_3dB = f_3dB
+  
+      @property
+      def G(self) -> float:
+          """ Gain to achieve full-scale output with maximum 
+          peak current sensed.
+          """ 
+          return self.V_O_max / self._V_in_max_pk
+  
+      @property
+      def R_f(self) -> float:
+          """ Shunt connected fb resistor
+          """ 
+          return self.R_1 * (self.G - 1)
+  
+      @property
+      def C(self) -> float:
+  
+          return 1 / (2 * np.pi * self._f_3dB * self.R_f)
+  
+      @property
+      def r_m(self) -> float:
+          """ Transresistance of the network.
+          """ 
+          return self._currentSenseResistor.R_sense * self.G
+  
+  
+  class VoltageSenseChainParams():
+  
+      V_cc      = 12.0        # (V)  +ve power rail
+      V_O_max   = V_cc - 0.5  # (V)  maximum positive output swing
+      R_T       = 100e3       # (Ohm) total resistance of divider
+  
+      def __init__(self,
+                   V_in_max_pk : float):
+          """
+          This is a non-inverting op-amp integrator.
+          :param V_in_max_pk: Maximum expected post rectification input voltage.
+          """
+          self._V_in_max_pk = V_in_max_pk
+  
+      @property
+      def ratio(self) -> float:
+          """ Divider ratio to rescale sensed input voltage
+          """ 
+          return self.V_O_max / self._V_in_max_pk
+  
+      @property
+      def R_2(self) -> float:
+          """ 
+          """ 
+          return self.R_T * self.ratio
+  
+      @property
+      def R_1(self) -> float:
+          """ 
+          """ 
+          return self.R_T - self.R_2
+  
+  
   def compute_boost_pfc_params():
-
-      boostPFCParams = BoostPFCParams()
-
-      print("P_I_test = {0} W  P_I_nominal = {1} W  P_I_max = {2} W"
-            .format(supplyInputs.P_I_test(), supplyInputs.P_I_nominal(), supplyInputs.P_I_max()))
-      print("I_I_min = {0} A rms  I_I_nominal = {1} A rms  I_I_max = {2} A rms"
-            .format(supplyInputs.I_I_min(), supplyInputs.I_I_nominal(), supplyInputs.I_I_max()))
-
-      # Assuming PF=1 !
-      print("I_I_min_peak = {0} A  I_I_nominal_peak = {1} A  I_I_max_peak = {2} A"
-            .format(supplyInputs.I_I_min() * np.sqrt(2),
-                    supplyInputs.I_I_nominal() * np.sqrt(2),
-                    supplyInputs.I_I_max() * np.sqrt(2)))
-
-
+  
+      supplyOutputs = SupplyOutputs(LEDFixtureParams())
+      supplyInputs = SupplyInputs(supplyOutputs)
+      boostPFCParams = BoostPFCParams(supplyInputs)
+      currentSenseResistor = CurrentSenseResistor(
+          boostPFCParams.R_I_sense,
+          supplyInputs.I_I_max * np.sqrt(2))
+      currentSenseAmplifierParams = CurrentSenseAmplifierParams(
+          currentSenseResistor,
+          boostPFCParams.f_3dB_I_sense)
+      voltageSenseChainParams = VoltageSenseChainParams(
+          supplyInputs.V_line_max * np.sqrt(2.0) - 2.0 * boostPFCParams.V_F)
+  
+      print("I_max_pk = {0} A  V_max_pk_I_sense = {1} V  P_R_max_I_sense = {2} W"
+            .format(currentSenseResistor.I_max_pk,
+                    currentSenseResistor.V_max_pk,
+                    currentSenseResistor.P_max))
+      print("G = {0} R_1 = {1} Ohm  R_f = {2} kOhm  C_I_sense = {3} nF"
+            .format(currentSenseAmplifierParams.G,
+                    currentSenseAmplifierParams.R_1,
+                    currentSenseAmplifierParams.R_f / 1e3,
+                    currentSenseAmplifierParams.C * 1e9))
+      print("ratio = {0}  R_1 = {1} kOhm  R_2 = {2} kOhm"
+            .format(voltageSenseChainParams.ratio,
+                    voltageSenseChainParams.R_1 / 1e3,
+                    voltageSenseChainParams.R_2 / 1e3))
+  
+      R_e_s = currentSenseAmplifierParams.r_m / voltageSenseChainParams.ratio
+      print("r_m = {0} VA^-1  A_v = {1} VV^-1  R_e = {2} Ohm "
+            " R_e_nom = {3} Ohm  R_e_min = {4} Ohm "
+            " m_nom = {5}  m_max = {6}"
+            .format(currentSenseAmplifierParams.r_m,
+                    voltageSenseChainParams.ratio,
+                    R_e_s,
+                    boostPFCParams.R_e_nom,
+                    boostPFCParams.R_e_min,
+                    R_e_s / boostPFCParams.R_e_nom,
+                    R_e_s / boostPFCParams.R_e_min))
+  
       return supplyInputs
-
+  
 #+END_SRC
+
+#+RESULTS: led-supply-design-compute-boost-pfc-params
 
 
 #+NAME: led-supply-design-compute-boost-pfc-params-main
 #+BEGIN_SRC python :noweb yes :tangle compute_boost_pfc_params.py :exports none :results output scalar raw replace
   <<led-supply-design-imports>>
-
+  
   <<led-supply-design-constants>>
-
+  
   <<led-supply-design-compute-supply-outputs>>
-
+  
   <<led-supply-design-compute-supply-inputs>>
-
+  
   <<led-supply-design-compute-boost-pfc-params>>
-
+  
   def main():
       compute_boost_pfc_params()
-
+  
   <<led-supply-design-call-main>>
 #+END_SRC
 
+#+RESULTS: led-supply-design-compute-boost-pfc-params-main
+14.7894736842
+I_max_pk = 1.437506491635711 A  V_max_pk_I_sense = 0.1437506491635711 V  P_R_max_I_sense = 0.10332124567474053 W
+G = 79.99963872799191 R_1 = 270 Ohm  R_f = 21.329902456557814 kOhm  C_I_sense = 7.461587947532487 nF
+ratio = 0.030800827347480297  R_1 = 96.91991726525198 kOhm  R_2 = 3.08008273474803 kOhm
+r_m = 7.999963872799191 VA^-1  A_v = 0.030800827347480297 VV^-1  R_e = 259.7321098731343 Ohm  R_e_nom = 813.8461538461539 Ohm  R_e_min = 83.62268518518518 Ohm  m_nom = 0.31914153387058086  m_max = 3.106000594192222
 
-* Active control of the current waveform
 
+* Small-signal model of the Boost Converter
+
+** Topology
+
+
+
+* Auxilliary supply
+
+
+#+NAME: led-supply-aux-buck-calc
+#+BEGIN_SRC python :results output
+
+print(12/0.760 - 1)
+#+END_SRC
+
+#+RESULTS: led-supply-aux-buck-calc
+: 14.7894736842
+
+From an E24 resistor calculator, https://jansson.us/resistors.html we have
+
+$R_1 = 15k \Omega$ , $R_2 = 1k + 15 \Omega$
 
 ref:erickson2007fundamentals
 

@@ -2,10 +2,10 @@
 <Properties>
   <View=0,60,1358,1365,1,0,0>
   <Grid=10,10,0>
-  <DataSet=sepic_sim_parasitics_1.dat>
-  <DataDisplay=sepic_sim_parasitics_1.sch>
+  <DataSet=sepic_parasitics_1.dat>
+  <DataDisplay=sepic_parasitics_1.sch>
   <OpenDisplay=1>
-  <Script=sepic_sim_parasitics_1.m>
+  <Script=sepic_parasitics_1.m>
   <RunScript=0>
   <showFrame=0>
   <FrameText0=Title>

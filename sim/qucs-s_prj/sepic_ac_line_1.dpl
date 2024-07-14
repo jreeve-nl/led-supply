@@ -1,0 +1,31 @@
+<Qucs Schematic 0.0.22>
+<Properties>
+  <View=0,0,1578,877,1,0,0>
+  <Grid=10,10,0>
+  <DataSet=sepic_ac_line_1.dat>
+  <DataDisplay=sepic_ac_line_1.sch>
+  <OpenDisplay=1>
+  <Script=sepic_ac_line_1.m>
+  <RunScript=0>
+  <showFrame=0>
+  <FrameText0=Title>
+  <FrameText1=Drawn By:>
+  <FrameText2=Date:>
+  <FrameText3=Revision:>
+</Properties>
+<Symbol>
+</Symbol>
+<Components>
+</Components>
+<Wires>
+</Wires>
+<Diagrams>
+  <Polar 310 240 200 200 3 #c0c0c0 1 00 1 0 1 1 1 0 0.5 1 1 0 1 1 315 0 225 "" "" "">
+	<"ngspice/tran.i(pr4)" #0000ff 0 3 0 0 0>
+  </Polar>
+  <Rect 590 781 941 401 3 #c0c0c0 1 00 1 0 0.2 1 1 -0.1 0.5 1.1 1 -0.1 0.5 1.1 315 0 225 "" "" "">
+	<"ngspice/tran.v(pr1)" #0000ff 0 3 0 0 0>
+  </Rect>
+</Diagrams>
+<Paintings>
+</Paintings>

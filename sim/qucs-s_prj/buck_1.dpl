@@ -1,6 +1,6 @@
 <Qucs Schematic 0.0.22>
 <Properties>
-  <View=0,0,1558,980,1,0,35>
+  <View=0,0,1558,980,1,0,10>
   <Grid=10,10,0>
   <DataSet=buck_1.dat>
   <DataDisplay=buck_1.sch>

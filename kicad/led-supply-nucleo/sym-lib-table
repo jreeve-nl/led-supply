@@ -1,0 +1,6 @@
+(sym_lib_table
+  (lib (name kicad-symbols-SDR1307-681KL)(type Legacy)(uri /Users/jsr/dev/led-supply/kicad/kicad-symbols/SDR1307-681KL.lib)(options "")(descr ""))
+  (lib (name kicad-symbols-STM32G474VET6)(type Legacy)(uri /Users/jsr/dev/led-supply/kicad/kicad-symbols/STM32G474VET6.lib)(options "")(descr ""))
+  (lib (name kicad-symbols-NF52832-QFAB)(type Legacy)(uri /Users/jsr/dev/led-supply/kicad/kicad-symbols/NRF52832-QFAB-R.lib)(options "")(descr ""))
+  (lib (name kicad-symbols-WUERTH-100UH)(type Legacy)(uri /Users/jsr/dev/led-supply/kicad/kicad-symbols/WUERTH-100UH.lib)(options "")(descr ""))
+)
